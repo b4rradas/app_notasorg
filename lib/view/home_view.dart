@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -44,20 +43,22 @@ class NavigationDrawer extends StatelessWidget {
     children: [
       ListTile(
         leading: Icon(Icons.home_outlined, size: 30,),
-        title: Text(
-          'Geral', style: TextStyle(fontSize: 22),),
+        title: Text('Geral', style: TextStyle(fontSize: 22),),
         onTap: () => Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => HomeView(),)),
       ),
+
       ListTile(
         leading: const Icon(Icons.check_box_outlined, size: 30,),
         title: const Text('Concluidos', style: TextStyle(fontSize: 22),),
         onTap: () {},
       ),
+
       ListTile(
         leading: const Icon(Icons.delete_outline, size: 30,),
         title: const Text('Lixeira', style: TextStyle(fontSize: 22),),
         onTap: () {},
       ),
+
       ListTile(
         leading: const Icon(Icons.archive_outlined, size: 30,),
         title: const Text('Arquivados', style: TextStyle(fontSize: 22),),

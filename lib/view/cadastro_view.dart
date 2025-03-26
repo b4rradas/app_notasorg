@@ -29,34 +29,38 @@ class _CadastroViewState extends State<CadastroView> {
                 decoration: InputDecoration(labelText: 'Nome'),
                 validator: controller.validateNome,
               ),
+
               TextFormField(
                 controller: controller.txtCadastroEmail,
                 decoration: InputDecoration(labelText: 'Email'),
                 keyboardType: TextInputType.emailAddress,
                 validator: controller.validateEmail,
               ),
+
               TextFormField(
                 controller: controller.txtCadastroNumero,
                 decoration: InputDecoration(labelText: 'Numero'),
                 keyboardType: TextInputType.number,
                 validator: controller.validateNumero,
               ),
+
               TextFormField(
                 controller: controller.txtCadastroSenha,
                 decoration: InputDecoration(labelText: 'Senha'),
                 obscureText: true,
                 validator: controller.validateSenha,
               ),
+
               TextFormField(
                 controller: controller.txtCadastroConfSenha,
                 decoration: InputDecoration(labelText: 'Confirmar Senha'),
                 obscureText: true,
                 validator: controller.validateConfirmSenha,
               ),
+
               SizedBox(height: 20),
               ElevatedButton(
-                onPressed: () {
-                },
+                onPressed: () => Navigator.pushNamed(context, 'home'),
                 child: Text('Cadastrar'),
               ),
             ],

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class CadastroController {
   final TextEditingController txtCadastroNome = TextEditingController();
   final TextEditingController txtCadastroEmail = TextEditingController();
-    final TextEditingController txtCadastroNumero = TextEditingController();
+  final TextEditingController txtCadastroNumero = TextEditingController();
   final TextEditingController txtCadastroSenha = TextEditingController();
   final TextEditingController txtCadastroConfSenha = TextEditingController();
 
