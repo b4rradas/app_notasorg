@@ -60,7 +60,10 @@ class _CadastroViewState extends State<CadastroView> {
 
               SizedBox(height: 20),
               ElevatedButton(
-                onPressed: () => Navigator.pushNamed(context, 'home'),
+                onPressed: ()  {
+                  controller.cadastrar();
+                  Navigator.pushNamed(context, 'home');
+                },
                 child: Text('Cadastrar'),
               ),
             ],

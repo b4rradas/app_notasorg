@@ -1,3 +1,4 @@
+import 'package:app_notasorg/model/usuario.dart';
 import 'package:flutter/material.dart';
 
 class CadastroController {
@@ -40,5 +41,13 @@ class CadastroController {
       return 'As senhas não coincidem';
     }
     return null;
+  }
+
+    void cadastrar(){
+    Usuario newUsuario = Usuario(
+      nome: txtCadastroNome.text, 
+      senha: txtCadastroSenha.text, 
+      email: txtCadastroEmail.text, 
+      numero: txtCadastroNumero.text);
   }
 }
