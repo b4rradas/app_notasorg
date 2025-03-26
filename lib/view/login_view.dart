@@ -38,9 +38,7 @@ class _LoginViewState extends State<LoginView> {
               ),
               SizedBox(height: 20),
               ElevatedButton(
-                onPressed: () {
-
-                },
+                onPressed: () => Navigator.pushNamed(context, 'home'),
                 child: Text('Entrar'),
               ),
               TextButton(
