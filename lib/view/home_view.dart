@@ -10,13 +10,13 @@ class HomeView extends StatelessWidget {
         title: Text('Geral'),
         backgroundColor: const Color.fromARGB(255, 74, 177, 233),
         ),
-      drawer: const NavigationDrawer()
+      drawer: const SideBar()
     );
   }
 }
 
-class NavigationDrawer extends StatelessWidget {
-  const NavigationDrawer({super.key});
+class SideBar extends StatelessWidget {
+  const SideBar({super.key});
 
   @override
   Widget build(BuildContext context) => Drawer(
@@ -50,7 +50,11 @@ class NavigationDrawer extends StatelessWidget {
       ListTile(
         leading: const Icon(Icons.check_box_outlined, size: 30,),
         title: const Text('Concluidos', style: TextStyle(fontSize: 22),),
-        onTap: () {},
+        onTap: () {
+          Navigator.pop(context);
+
+          Navigator.of(context).pushNamed('concluidos');
+        } 
       ),
 
       ListTile(

@@ -1,6 +1,7 @@
 import 'package:app_notasorg/controller/cadastro_controller.dart';
 import 'package:app_notasorg/controller/login_controller.dart';
 import 'package:app_notasorg/view/cadastro_view.dart';
+import 'package:app_notasorg/view/concluidos_view.dart';
 import 'package:app_notasorg/view/home_view.dart';
 import 'package:app_notasorg/view/login_view.dart';
 import 'package:device_preview/device_preview.dart';
@@ -33,6 +34,7 @@ class MainApp extends StatelessWidget {
         'login': (context) => LoginView(),
         'cadastro': (context) => CadastroView(),
         'home': (context) => HomeView(),
+        'concluidos': (context) => ConcluidosView(),
       },
       builder: DevicePreview.appBuilder,
     );
