@@ -16,7 +16,10 @@ class _CadastroViewState extends State<CadastroView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Cadastro')),
+      appBar: AppBar(
+        title: Text('Cadastro'),
+        backgroundColor: Color.fromARGB(255, 74, 177, 233),
+        ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Form(

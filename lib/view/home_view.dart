@@ -11,6 +11,7 @@ class HomeView extends StatelessWidget {
         backgroundColor: const Color.fromARGB(255, 74, 177, 233),
         ),
       drawer: const SideBar()
+      
     );
   }
 }

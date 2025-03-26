@@ -16,7 +16,10 @@ class _LoginViewState extends State<LoginView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Login')),
+      appBar: AppBar(
+        title: Text('Login'),
+        backgroundColor: Color.fromARGB(255, 74, 177, 233),
+        ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Form(
