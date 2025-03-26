@@ -1,3 +1,3 @@
 # app_notasorg
 
-A new Flutter project.
+Projeto para um aplicativo de organização pessoal de notas. Projeto em Flutter
