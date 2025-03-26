@@ -44,6 +44,7 @@ class CadastroController {
   }
 
     void cadastrar(){
+    // ignore: unused_local_variable
     Usuario newUsuario = Usuario(
       nome: txtCadastroNome.text, 
       senha: txtCadastroSenha.text, 
