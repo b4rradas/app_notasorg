@@ -45,8 +45,8 @@ class NavigationDrawer extends StatelessWidget {
       ListTile(
         leading: Icon(Icons.home_outlined, size: 30,),
         title: Text(
-          'Home', style: TextStyle(fontSize: 22),),
-        onTap: () {},
+          'Geral', style: TextStyle(fontSize: 22),),
+        onTap: () => Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => HomeView(),)),
       ),
       ListTile(
         leading: const Icon(Icons.check_box_outlined, size: 30,),
