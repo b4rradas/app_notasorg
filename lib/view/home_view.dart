@@ -1,37 +1,64 @@
 import 'package:flutter/material.dart';
 
-class HomeView extends StatefulWidget {
+class HomeView extends StatelessWidget {
   const HomeView({super.key});
 
   @override
-  State<HomeView> createState() => _HomeViewState();
-}
-
-class _HomeViewState extends State<HomeView> {
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Tela Inicial')),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'Bem-vindo ao seu Gerenciador de Tarefas!',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              textAlign: TextAlign.center,
-            ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                // Navegar para a tela de tarefas
-                Navigator.pushNamed(context, '/tasks');
-              },
-              child: Text('Ver Minhas Tarefas'),
-            ),
-          ],
+      appBar: AppBar(
+        title: Text('Geral'),
+        backgroundColor: const Color.fromARGB(255, 91, 153, 186),
         ),
-      ),
+      drawer: const NavigationDrawer()
     );
   }
+}
+
+class NavigationDrawer extends StatelessWidget {
+  const NavigationDrawer({super.key});
+
+  @override
+  Widget build(BuildContext context) => Drawer(
+    child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            buildHeader(context),
+            buildMenuItens(context)
+        ],
+      ),
+    ),
+  );
+
+  Widget buildHeader(BuildContext context) => Container(
+      padding: EdgeInsets.only(
+      top: MediaQuery.of(context).padding.top
+    ),
+  );
+
+  Widget buildMenuItens(BuildContext context) => Column(
+    children: [
+      ListTile(
+        leading: const Icon(Icons.home_outlined),
+        title: const Text('Home'),
+        onTap: () {},
+      ),
+      ListTile(
+        leading: const Icon(Icons.check_box_outlined),
+        title: const Text('Concluidos'),
+        onTap: () {},
+      ),
+      ListTile(
+        leading: const Icon(Icons.delete_outline),
+        title: const Text('Lixeira'),
+        onTap: () {},
+      ),
+      ListTile(
+        leading: const Icon(Icons.archive_outlined),
+        title: const Text('Arquivados'),
+        onTap: () {},
+      )
+    ],
+  );
 }
