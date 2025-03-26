@@ -6,6 +6,16 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      body: Container(
+        width: double.infinity,
+        height: double.infinity,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/background_img.png"), // Imagem de fundo
+            fit: BoxFit.cover, // Preenche toda a tela
+          ),
+        ),
+      ),
       appBar: AppBar(
         title: Text('Geral'),
         backgroundColor: const Color.fromARGB(255, 74, 177, 233),
