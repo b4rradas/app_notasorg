@@ -36,6 +36,12 @@ class _CadastroViewState extends State<CadastroView> {
                 validator: controller.validateEmail,
               ),
               TextFormField(
+                controller: controller.txtCadastroNumero,
+                decoration: InputDecoration(labelText: 'Numero'),
+                keyboardType: TextInputType.number,
+                validator: controller.validateNumero,
+              ),
+              TextFormField(
                 controller: controller.txtCadastroSenha,
                 decoration: InputDecoration(labelText: 'Senha'),
                 obscureText: true,
