@@ -3,6 +3,9 @@ import 'package:app_notasorg/controller/login_controller.dart';
 import 'package:app_notasorg/view/arquivados_view.dart';
 import 'package:app_notasorg/view/cadastro_view.dart';
 import 'package:app_notasorg/view/concluidos_view.dart';
+import 'package:app_notasorg/view/group_estudos_view.dart';
+import 'package:app_notasorg/view/group_pessoal_view.dart';
+import 'package:app_notasorg/view/group_trabalho_view.dart';
 import 'package:app_notasorg/view/home_view.dart';
 import 'package:app_notasorg/view/lixeira_view.dart';
 import 'package:app_notasorg/view/login_view.dart';
@@ -39,6 +42,9 @@ class MainApp extends StatelessWidget {
         'concluidos': (context) => ConcluidosView(),
         'lixeira': (context) => LixeiraView(),
         'arquivados': (context) => ArquivadosView(),
+        'group_trabalho': (context) => GroupTrabalhoView(),
+        'group_pessoal': (context) => GroupPessoalView(),
+        'group_estudos': (context) => GroupEstudosView(),
       },
       builder: DevicePreview.appBuilder,
     );

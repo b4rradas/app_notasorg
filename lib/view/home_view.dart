@@ -30,7 +30,7 @@ class HomeView extends StatelessWidget {
                 title: 'Trabalho', 
                 color: Colors.grey[300]!, 
                 onTap: () {
-                  Navigator.of(context).pushNamed('');
+                  Navigator.of(context).pushNamed('group_trabalho');
                 }
               ),
 
@@ -38,7 +38,7 @@ class HomeView extends StatelessWidget {
                 title: 'Pessoal', 
                 color: Colors.purple[400]!, 
                 onTap: () {
-                  Navigator.of(context).pushNamed('');
+                  Navigator.of(context).pushNamed('group_pessoal');
                 }
               ),
 
@@ -46,7 +46,7 @@ class HomeView extends StatelessWidget {
                 title: 'Estudos', 
                 color: Colors.green[400]!, 
                 onTap: () {
-                  Navigator.of(context).pushNamed('');
+                  Navigator.of(context).pushNamed('group_estudos');
                 }
               ),
             ],

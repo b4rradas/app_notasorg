@@ -64,6 +64,18 @@ class SideBar extends StatelessWidget {   //Criando Drawer - SideBar
 
           Navigator.of(context).pushNamed('arquivados');
         },
+      ),
+
+      const Divider(color: Colors.black38,),
+
+      ListTile(
+        leading: const Icon(Icons.person, size: 30,),
+        title: const Text('Sobre', style: TextStyle(fontSize: 22),),
+        onTap: () {
+          Navigator.pop(context);
+
+          Navigator.of(context).pushNamed('');
+        },
       )
     ],
   );
