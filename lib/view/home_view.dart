@@ -55,7 +55,11 @@ class SideBar extends StatelessWidget {   //Criando Drawer - SideBar
       ListTile(
         leading: Icon(Icons.home_outlined, size: 30,),
         title: Text('Geral', style: TextStyle(fontSize: 22),),
-        onTap: () => Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => HomeView(),)),
+          onTap: () {
+            Navigator.pop(context);
+
+            Navigator.of(context).pushNamed('home');
+          },
       ),
 
       ListTile(
