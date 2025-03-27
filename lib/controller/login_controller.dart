@@ -4,7 +4,7 @@ class LoginController {
   final TextEditingController txtLoginEmail = TextEditingController();
   final TextEditingController txtLoginSenha = TextEditingController();
 
-  bool ValidateField(){
+  bool validateField(){
     if (txtLoginEmail.text.isEmpty || txtLoginSenha.text.isEmpty) {
       return false;
     }

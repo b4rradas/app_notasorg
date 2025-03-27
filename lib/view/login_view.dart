@@ -42,7 +42,7 @@ class _LoginViewState extends State<LoginView> {
               SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
-                  if (controller.ValidateField()) {
+                  if (controller.validateField()) {
                     Navigator.pushNamed(context, 'home');
                   } else {
                     controller.showAlertDialog(context);

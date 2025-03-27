@@ -8,39 +8,59 @@ class CadastroController {
   final TextEditingController txtCadastroSenha = TextEditingController();
   final TextEditingController txtCadastroConfSenha = TextEditingController();
 
-  String? validateNome(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Insira seu nome';
+  bool validateFields() {
+    if (txtCadastroEmail.text.isEmpty || txtCadastroNome.text.isEmpty || txtCadastroNumero.text.isEmpty 
+    || txtCadastroSenha.text.isEmpty || txtCadastroConfSenha.text.isEmpty){
+      return false;
     }
-    return null;
+    return true;
   }
 
-  String? validateEmail(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Insira um email válido';
+  bool checkPasswords() {
+    if (txtCadastroConfSenha.text != txtCadastroSenha.text){
+      return false;
     }
-    return null;
+    return true;
   }
 
-  String? validateNumero(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Insira um numero válido';
-    }
-    return null;
+  void showAlertDialogCad(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Campos inválidos'),
+          content: Text('Por favor, preencha todos os campos'),
+          actions: <Widget>[
+            TextButton(
+              child: Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
-  String? validateSenha(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Insira uma senha';
-    }
-    return null;
-  }
-
-  String? validateConfirmSenha(String? value) {
-    if (value != txtCadastroSenha.text) {
-      return 'As senhas não coincidem';
-    }
-    return null;
+  void showAlertDialogPassword(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Senhas Não Coincidem'),
+          content: Text('Por favor, tenha certeza de que as senhas são iguais'),
+          actions: <Widget>[
+            TextButton(
+              child: Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
     void cadastrar(){
