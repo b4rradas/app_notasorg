@@ -55,7 +55,7 @@ class HomeView extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
-        backgroundColor: Colors.black54,
+        backgroundColor: const Color.fromARGB(76, 0, 0, 0),
         child: PopupMenuButton<String>(
           onSelected: (value) {
             if (value == 'novo_grupo') {
@@ -74,7 +74,7 @@ class HomeView extends StatelessWidget {
               child: Text('Nova Nota'),
             ),
           ],
-          child: const Icon(Icons.add, size: 50, color: Colors.black,),
+          child: const Icon(Icons.add, size: 50, color: Color.fromARGB(255, 41, 41, 41),),
         ),
       ),
     );

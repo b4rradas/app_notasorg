@@ -8,6 +8,12 @@ class ArquivadosView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: SideBar(),
+      appBar: AppBar(
+        title: Text('Arquivados'),
+        backgroundColor: Color.fromARGB(255, 74, 177, 233),
+      ),
+
       body: Container(
         width: double.infinity,
         height: double.infinity,
@@ -17,11 +23,59 @@ class ArquivadosView extends StatelessWidget {
             fit: BoxFit.cover, // Preenche toda a tela
           ),
         ),
+
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: ListView(
+            children: [
+              ListCard(
+                title: "Trabalho",
+                color: Colors.grey[300]!,
+                onTap: () {
+                  Navigator.of(context).pushNamed('trabalho');
+                },
+              ),
+              ListCard(
+                title: "Pessoal",
+                color: Colors.purple[400]!,
+                onTap: () {
+                  Navigator.of(context).pushNamed('pessoal');
+                },
+              ),
+              ListCard(
+                title: "Estudos",
+                color: Colors.green[400]!,
+                onTap: () {
+                  Navigator.of(context).pushNamed('estudos');
+                },
+              ),
+            ],
+          ),
+        ),
       ),
-      drawer: SideBar(),
-      appBar: AppBar(
-        title: Text('Arquivados'),
-        backgroundColor: Color.fromARGB(255, 74, 177, 233),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        backgroundColor: const Color.fromARGB(76, 0, 0, 0),
+        child: PopupMenuButton<String>(
+          onSelected: (value) {
+            if (value == 'novo_grupo') {
+              // Lógica para novo grupo
+            } else if (value == 'nova_nota') {
+              // Lógica para nova nota
+            }
+          },
+          itemBuilder: (context) => [
+            const PopupMenuItem(
+              value: 'novo_grupo',
+              child: Text('Novo Grupo'),
+            ),
+            const PopupMenuItem(
+              value: 'nova_nota',
+              child: Text('Nova Nota'),
+            ),
+          ],
+          child: const Icon(Icons.add, size: 50, color: Color.fromARGB(255, 41, 41, 41),),
+        ),
       ),
     );
   }
