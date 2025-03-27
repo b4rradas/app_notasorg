@@ -31,19 +31,23 @@ class _LoginViewState extends State<LoginView> {
                 controller: controller.txtLoginEmail,
                 decoration: InputDecoration(labelText: 'Email'),
                 keyboardType: TextInputType.emailAddress,
-                validator: controller.validateEmail,
               ),
 
               TextFormField(
                 controller: controller.txtLoginSenha,
                 decoration: InputDecoration(labelText: 'Senha'),
                 obscureText: true,
-                validator: controller.validateSenha,
               ),
 
               SizedBox(height: 20),
               ElevatedButton(
-                onPressed: () => Navigator.pushNamed(context, 'home'),
+                onPressed: () {
+                  if (controller.ValidateField()) {
+                    Navigator.pushNamed(context, 'home');
+                  } else {
+                    controller.showAlertDialog(context);
+                  }
+                },
                 child: Text('Entrar'),
               ),
               
