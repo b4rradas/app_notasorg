@@ -10,7 +10,7 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginViewState extends State<LoginView> {
-  final LoginController controller = GetIt.I<LoginController>();
+  final LoginController controller = GetIt.I<LoginController>();            //Registrando controller
   final _formKey = GlobalKey<FormState>();
 
   @override

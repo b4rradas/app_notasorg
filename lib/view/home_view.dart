@@ -11,8 +11,8 @@ class HomeView extends StatelessWidget {
         height: double.infinity,
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("assets/background_img.png"), // Imagem de fundo
-            fit: BoxFit.cover, // Preenche toda a tela
+            image: AssetImage("assets/background_img.png"),   // Imagem de fundo
+            fit: BoxFit.cover,
           ),
         ),
       ),
@@ -26,11 +26,11 @@ class HomeView extends StatelessWidget {
   }
 }
 
-class SideBar extends StatelessWidget {
+class SideBar extends StatelessWidget {   //Criando Drawer - SideBar
   const SideBar({super.key});
 
   @override
-  Widget build(BuildContext context) => Drawer(
+  Widget build(BuildContext context) => Drawer(                   
     backgroundColor: const Color.fromARGB(255, 74, 177, 233),
     child: SingleChildScrollView(
         child: Column(
@@ -71,13 +71,21 @@ class SideBar extends StatelessWidget {
       ListTile(
         leading: const Icon(Icons.delete_outline, size: 30,),
         title: const Text('Lixeira', style: TextStyle(fontSize: 22),),
-        onTap: () {},
+        onTap: () {
+          Navigator.pop(context);
+
+          Navigator.of(context).pushNamed('lixeira');
+        },
       ),
 
       ListTile(
         leading: const Icon(Icons.archive_outlined, size: 30,),
         title: const Text('Arquivados', style: TextStyle(fontSize: 22),),
-        onTap: () {},
+        onTap: () {
+          Navigator.pop(context);
+
+          Navigator.of(context).pushNamed('arquivados');
+        },
       )
     ],
   );
