@@ -151,4 +151,37 @@ Color darkenColor(Color color, double fator) {  //Escurecer a cor para o topo do
   HSVColor hsv = HSVColor.fromColor(color);
   HSVColor novaCor = hsv.withValue((hsv.value * fator).clamp(0.0, 1.0));
   return novaCor.toColor();
-}// TODO Implement this library.
+}
+
+
+class ListCard extends StatelessWidget {
+  final String title;
+  final Color color;
+  final VoidCallback onTap;
+
+  const ListCard({
+    super.key,
+    required this.title,
+    required this.color,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        margin: const EdgeInsets.symmetric(vertical: 8),
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: color,
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Text(
+          title,
+          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        ),
+      ),
+    );
+  }
+}
