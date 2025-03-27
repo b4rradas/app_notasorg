@@ -15,6 +15,15 @@ class HomeView extends StatelessWidget {
             fit: BoxFit.cover,
           ),
         ),
+        child: SizedBox(
+          width: MediaQuery.sizeOf(context).width,
+          height: MediaQuery.sizeOf(context).height,
+          child: IconButton(
+            onPressed: () {
+              Navigator.of(context).pushNamed('concluidos');
+            },
+            icon: ImageIcon(AssetImage("assets/icons/circle-plus.svg"))),
+        ),
       ),
       appBar: AppBar(
         title: Text('Geral'),
