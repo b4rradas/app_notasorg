@@ -58,17 +58,11 @@ class HomeView extends StatelessWidget {
         backgroundColor: const Color.fromARGB(76, 0, 0, 0),
         child: PopupMenuButton<String>(
           onSelected: (value) {
-            if (value == 'novo_grupo') {
-              // Lógica para novo grupo
-            } else if (value == 'nova_nota') {
+            if (value == 'nova_nota') {
               // Lógica para nova nota
             }
           },
           itemBuilder: (context) => [
-            const PopupMenuItem(
-              value: 'novo_grupo',
-              child: Text('Novo Grupo'),
-            ),
             const PopupMenuItem(
               value: 'nova_nota',
               child: Text('Nova Nota'),
