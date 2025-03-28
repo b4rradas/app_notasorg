@@ -9,6 +9,7 @@ import 'package:app_notasorg/view/group_view.dart';
 import 'package:app_notasorg/view/home_view.dart';
 import 'package:app_notasorg/view/lixeira_view.dart';
 import 'package:app_notasorg/view/login_view.dart';
+import 'package:app_notasorg/view/sobre_view.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
@@ -47,6 +48,7 @@ class MainApp extends StatelessWidget {
         'group_trabalho': (context) => TrabalhoView(),
         'group_pessoal': (context) => PessoalView(),
         'group_estudos': (context) => EstudosView(),
+        'sobre':(context) => SobreView(),
       },
       builder: DevicePreview.appBuilder,
     );

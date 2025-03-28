@@ -76,7 +76,7 @@ class SideBar extends StatelessWidget {   //Criando Drawer - SideBar
         onTap: () {
           Navigator.pop(context);
 
-          Navigator.of(context).pushNamed('');
+          Navigator.of(context).pushNamed('sobre');
         },
       )
     ],

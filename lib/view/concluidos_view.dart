@@ -60,7 +60,7 @@ class ConcluidosView extends StatelessWidget {
         child: PopupMenuButton<String>(
           onSelected: (value) {
             if (value == 'nova_nota') {
-              // Lógica para nova nota
+              Navigator.of(context).pushNamed('criar_nota');
             }
           },
           itemBuilder: (context) => [
