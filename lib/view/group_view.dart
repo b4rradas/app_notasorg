@@ -10,6 +10,19 @@ class GroupView extends StatelessWidget {
 
   final NotasController controller = GetIt.I<NotasController>();
 
+    Color _getPriorityColor(String priorityTag) {
+    switch (priorityTag) {
+      case 'Alta Prioridade':
+        return Colors.red;
+      case 'Média Prioridade':
+        return Colors.yellow;
+      case 'Baixa Prioridade':
+        return Colors.green;
+      default:
+        return Colors.grey;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final tasks = controller.filterByGroup(groupName);
@@ -25,23 +38,51 @@ class GroupView extends StatelessWidget {
         title: Text(groupName),
         backgroundColor: groupColor,
       ),
-      body: ListView.builder(
-        itemCount: tasks.length,
-        itemBuilder: (context, index) {
-          final task = tasks[index];
-          return ListTile(
-            title: Text(task.name),
-            subtitle: Text(task.description),
-            trailing: IconButton(
-              icon: Icon(Icons.delete),
-              onPressed: () {
-                controller.removeTask(task);
-                Navigator.pop(context);
-              },
-            ),
-          );
-        },
-      ),
+      body: Container(
+        width: double.infinity,
+        height: double.infinity,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/background_img.png"),   // Imagem de fundo
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: ListView.builder(
+          itemCount: tasks.length,
+          itemBuilder: (context, index) {
+           final task = tasks[index];
+           return Container(
+              decoration: BoxDecoration(
+                color: const Color.fromARGB(255, 233, 229, 226),
+                borderRadius: BorderRadius.circular(8),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.shade400,
+                    blurRadius: 4,
+                    offset: const Offset(2, 2),
+                  ),
+                ],
+              ),
+              margin: const EdgeInsets.symmetric(vertical: 5),
+              child: ListTile(
+                leading: CircleAvatar(
+                  backgroundColor: _getPriorityColor(task.priorityTag),
+                  radius: 8,
+                ),
+                title: Text(task.name),
+                subtitle: Text(task.description),
+                trailing: IconButton(
+                icon: Icon(Icons.delete),
+                onPressed: () {
+                  controller.removeTask(task);
+                  Navigator.pushNamedAndRemoveUntil(context, 'home', (route) => false);
+                },
+                ),
+              )
+            );
+          },
+        ),
+      )
     );
   }
 }
