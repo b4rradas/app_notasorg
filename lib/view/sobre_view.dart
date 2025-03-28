@@ -20,7 +20,7 @@ class SobreView extends StatelessWidget {
         decoration: BoxDecoration(
           image: DecorationImage(
             image: AssetImage("assets/background_img.png"), // Imagem de fundo
-            fit: BoxFit.cover, // Preenche toda a tela
+            fit: BoxFit.cover,
           ),
         ),
       ),

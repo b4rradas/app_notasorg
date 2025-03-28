@@ -26,7 +26,7 @@ class HomeView extends StatelessWidget {
           child: Column(
             children: [
               SizedBox(
-                height: MediaQuery.of(context).size.height * 0.25, // Ajuste a altura aqui
+                height: MediaQuery.of(context).size.height * 0.25,
                 child: GroupCard(
                   title: 'Trabalho',
                   color: Colors.grey[300]!,
@@ -37,7 +37,7 @@ class HomeView extends StatelessWidget {
               ),
               const SizedBox(height: 10),
               SizedBox(
-                height: MediaQuery.of(context).size.height * 0.25, // Ajuste a altura aqui
+                height: MediaQuery.of(context).size.height * 0.25, 
                 child: GroupCard(
                   title: 'Pessoal',
                   color: Colors.purple[400]!,
@@ -48,7 +48,7 @@ class HomeView extends StatelessWidget {
               ),
               const SizedBox(height: 10),
               SizedBox(
-                height: MediaQuery.of(context).size.height * 0.25, // Ajuste a altura aqui
+                height: MediaQuery.of(context).size.height * 0.25,
                 child: GroupCard(
                   title: 'Estudos',
                   color: Colors.green[400]!,

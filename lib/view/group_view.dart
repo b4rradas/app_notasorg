@@ -10,7 +10,7 @@ class GroupView extends StatelessWidget {
 
   final NotasController controller = GetIt.I<NotasController>();
 
-    Color _getPriorityColor(String priorityTag) {
+    Color _getPriorityColor(String priorityTag) {   //Selecionando cor para prioridade da tarefa
     switch (priorityTag) {
       case 'Alta Prioridade':
         return Colors.red;
@@ -47,7 +47,7 @@ class GroupView extends StatelessWidget {
             fit: BoxFit.cover,
           ),
         ),
-        child: ListView.builder(
+        child: ListView.builder(                //List View
           itemCount: tasks.length,
           itemBuilder: (context, index) {
            final task = tasks[index];
@@ -86,6 +86,9 @@ class GroupView extends StatelessWidget {
     );
   }
 }
+
+
+//Organizando Para cada grupo
 
 class PessoalView extends StatelessWidget {
   const PessoalView({super.key});

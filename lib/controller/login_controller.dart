@@ -4,14 +4,14 @@ class LoginController {
   final TextEditingController txtLoginEmail = TextEditingController();
   final TextEditingController txtLoginSenha = TextEditingController();
 
-  bool validateField(){
+  bool validateField(){     //Validar campo vazio
     if (txtLoginEmail.text.isEmpty || txtLoginSenha.text.isEmpty) {
       return false;
     }
     return true;
   }
 
-  void showAlertDialog(BuildContext context) {
+  void showAlertDialog(BuildContext context) {    //Alerta para caso algum campo vazio
     showDialog(
       context: context,
       builder: (BuildContext context) {

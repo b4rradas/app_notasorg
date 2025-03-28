@@ -16,7 +16,6 @@ class _CriarnotaViewState extends State<CriarnotaView> {
   final _nameController = TextEditingController();
   final _descriptionController = TextEditingController();
   String _priorityTag = 'Média Prioridade';
-  final Color _taskColor = Colors.pink;
   String _group = 'Pessoal';
 
   void _createTask() {
@@ -25,7 +24,6 @@ class _CriarnotaViewState extends State<CriarnotaView> {
       name: _nameController.text,
       description: _descriptionController.text,
       priorityTag: _priorityTag,
-      color: _taskColor,
       group: _group,
     );
     controller.addTask(newTask);

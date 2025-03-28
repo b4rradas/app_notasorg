@@ -1,6 +1,4 @@
-import 'package:app_notasorg/controller/notas_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
 
 class SideBar extends StatelessWidget {   //Criando Drawer - SideBar
   const SideBar({super.key});
@@ -83,7 +81,7 @@ class SideBar extends StatelessWidget {   //Criando Drawer - SideBar
   );
 }
 
-class GroupCard extends StatelessWidget {
+class GroupCard extends StatelessWidget {     //Crição dos grupos
   final String title;
   final Color color;
   final VoidCallback onTap;
@@ -168,7 +166,7 @@ Color darkenColor(Color color, double fator) {  //Escurecer a cor para o topo do
 }
 
 
-class ListCard extends StatelessWidget {
+class ListCard extends StatelessWidget {    //Criação dos cartões de lista
   final String title;
   final Color color;
   final VoidCallback onTap;
@@ -195,45 +193,6 @@ class ListCard extends StatelessWidget {
           title,
           style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
-      ),
-    );
-  }
-}
-
-
-class GroupView extends StatelessWidget {
-  final String groupName;
-  final Color groupColor;
-
-  GroupView({super.key, required this.groupName, required this.groupColor});
-
-  final NotasController controller = GetIt.I<NotasController>();
-
-  @override
-  Widget build(BuildContext context) {
-    final tasks = controller.filterByGroup(groupName);
-
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(groupName),
-        backgroundColor: groupColor,
-      ),
-      body: ListView.builder(
-        itemCount: tasks.length,
-        itemBuilder: (context, index) {
-          final task = tasks[index];
-          return ListTile(
-            title: Text(task.name),
-            subtitle: Text(task.description),
-            trailing: IconButton(
-              icon: Icon(Icons.delete),
-              onPressed: () {
-                controller.removeTask(task);
-                Navigator.pop(context);
-              },
-            ),
-          );
-        },
       ),
     );
   }

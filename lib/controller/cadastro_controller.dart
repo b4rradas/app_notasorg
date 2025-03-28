@@ -8,7 +8,7 @@ class CadastroController {
   final TextEditingController txtCadastroSenha = TextEditingController();
   final TextEditingController txtCadastroConfSenha = TextEditingController();
 
-  bool validateFields() {
+  bool validateFields() {   //Validar para campo vazio
     if (txtCadastroEmail.text.isEmpty || txtCadastroNome.text.isEmpty || txtCadastroNumero.text.isEmpty 
     || txtCadastroSenha.text.isEmpty || txtCadastroConfSenha.text.isEmpty){
       return false;
@@ -16,14 +16,14 @@ class CadastroController {
     return true;
   }
 
-  bool checkPasswords() {
+  bool checkPasswords() {   //Validar senhas iguais
     if (txtCadastroConfSenha.text != txtCadastroSenha.text){
       return false;
     }
     return true;
   }
 
-  void showAlertDialogCad(BuildContext context) {
+  void showAlertDialogCad(BuildContext context) {   //Alerta para cas um campo esteja vazio
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -43,7 +43,7 @@ class CadastroController {
     );
   }
 
-  void showAlertDialogPassword(BuildContext context) {
+  void showAlertDialogPassword(BuildContext context) {    //Alera para caso as senhas não forem a mesma
     showDialog(
       context: context,
       builder: (BuildContext context) {
