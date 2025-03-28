@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:app_notasorg/widgets/widgets.dart';
 
-
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
 
@@ -9,45 +8,54 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Geral'),
+        title: const Text('Geral'),
         backgroundColor: const Color.fromARGB(255, 74, 177, 233),
-        ),
+      ),
       drawer: const SideBar(),
       body: Container(
         width: double.infinity,
         height: double.infinity,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("assets/background_img.png"),   // Imagem de fundo
+            image: AssetImage("assets/background_img.png"),
             fit: BoxFit.cover,
           ),
         ),
         child: Padding(
           padding: const EdgeInsets.all(10.0),
-          child: ListView(
+          child: Column(
             children: [
-              GroupCard(                        //Adicionando os grupos
-                title: 'Trabalho', 
-                color: Colors.grey[300]!, 
-                onTap: () {
-                  Navigator.of(context).pushNamed('group_trabalho');
-                }
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.25, // Ajuste a altura aqui
+                child: GroupCard(
+                  title: 'Trabalho',
+                  color: Colors.grey[300]!,
+                  onTap: () {
+                    Navigator.of(context).pushNamed('group_trabalho');
+                  },
+                ),
               ),
-
-              GroupCard(
-                title: 'Pessoal', 
-                color: Colors.purple[400]!, 
-                onTap: () {
-                  Navigator.of(context).pushNamed('group_pessoal');
-                }
+              const SizedBox(height: 10),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.25, // Ajuste a altura aqui
+                child: GroupCard(
+                  title: 'Pessoal',
+                  color: Colors.purple[400]!,
+                  onTap: () {
+                    Navigator.of(context).pushNamed('group_pessoal');
+                  },
+                ),
               ),
-
-              GroupCard(
-                title: 'Estudos', 
-                color: Colors.green[400]!, 
-                onTap: () {
-                  Navigator.of(context).pushNamed('group_estudos');
-                }
+              const SizedBox(height: 10),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.25, // Ajuste a altura aqui
+                child: GroupCard(
+                  title: 'Estudos',
+                  color: Colors.green[400]!,
+                  onTap: () {
+                    Navigator.of(context).pushNamed('group_estudos');
+                  },
+                ),
               ),
             ],
           ),
@@ -68,10 +76,13 @@ class HomeView extends StatelessWidget {
               child: Text('Nova Nota'),
             ),
           ],
-          child: const Icon(Icons.add, size: 50, color: Color.fromARGB(255, 41, 41, 41),),
+          child: const Icon(
+            Icons.add,
+            size: 50,
+            color: Color.fromARGB(255, 41, 41, 41),
+          ),
         ),
       ),
     );
   }
 }
-
