@@ -16,6 +16,12 @@ class GroupView extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pushNamedAndRemoveUntil(context, 'home', (route) => false);
+          },
+        ),
         title: Text(groupName),
         backgroundColor: groupColor,
       ),
@@ -44,19 +50,19 @@ class PessoalView extends StatelessWidget {
   const PessoalView({super.key});
 
   @override
-  Widget build(BuildContext context) => GroupView(groupName: "Pessoal", groupColor: Colors.blue);
+  Widget build(BuildContext context) => GroupView(groupName: "Pessoal", groupColor: Colors.purple[400]!);
 }
 
 class EstudosView extends StatelessWidget {
   const EstudosView({super.key});
 
   @override
-  Widget build(BuildContext context) => GroupView(groupName: "Estudos", groupColor: Colors.green);
+  Widget build(BuildContext context) => GroupView(groupName: "Estudos", groupColor: Colors.green[400]!);
 }
 
 class TrabalhoView extends StatelessWidget {
   const TrabalhoView({super.key});
 
   @override
-  Widget build(BuildContext context) => GroupView(groupName: "Trabalho", groupColor: Colors.red);
+  Widget build(BuildContext context) => GroupView(groupName: "Trabalho", groupColor: Colors.grey[300]!);
 }

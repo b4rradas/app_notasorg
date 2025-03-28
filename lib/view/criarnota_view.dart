@@ -33,10 +33,10 @@ class _CriarnotaViewState extends State<CriarnotaView> {
     // Redirecionar para a tela do grupo correspondente
     switch (_group) {
       case 'Pessoal':
-        Navigator.pushNamedAndRemoveUntil(context, '/pessoal', (route) => false);
+        Navigator.pushNamedAndRemoveUntil(context, 'group_pessoal', (route) => false);
         break;
       case 'Estudos':
-        Navigator.pushNamedAndRemoveUntil(context, '/estudos', (route) => false);
+        Navigator.pushNamedAndRemoveUntil(context, 'group_estudos', (route) => false);
         break;
       case 'Trabalho':
         Navigator.pushNamedAndRemoveUntil(context, 'group_trabalho', (route) => false);
