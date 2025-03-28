@@ -1,7 +1,6 @@
 import 'package:app_notasorg/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 
-
 class ArquivadosView extends StatelessWidget {
   const ArquivadosView({super.key});
 
@@ -13,45 +12,45 @@ class ArquivadosView extends StatelessWidget {
         title: Text('Arquivados'),
         backgroundColor: Color.fromARGB(255, 74, 177, 233),
       ),
-
-      body: Container(
-        width: double.infinity,
-        height: double.infinity,
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("assets/background_img.png"), // Imagem de fundo
-            fit: BoxFit.cover,
+      body: Stack(
+        children: [
+          Container(
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("assets/background_img.png"),
+                fit: BoxFit.cover,
+              ),
+            ),
           ),
-        ),
-
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: ListView(
-            children: [
-              ListCard(
-                title: "Trabalho",
-                color: Colors.grey[300]!,
-                onTap: () {
-                  Navigator.of(context).pushNamed('trabalho');
-                },
-              ),
-              ListCard(
-                title: "Pessoal",
-                color: Colors.purple[400]!,
-                onTap: () {
-                  Navigator.of(context).pushNamed('pessoal');
-                },
-              ),
-              ListCard(
-                title: "Estudos",
-                color: Colors.green[400]!,
-                onTap: () {
-                  Navigator.of(context).pushNamed('estudos');
-                },
-              ),
-            ],
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: ListView(
+              children: [
+                ListCard(
+                  title: "Trabalho",
+                  color: Colors.grey[300]!,
+                  onTap: () {
+                    Navigator.of(context).pushNamed('trabalho');
+                  },
+                ),
+                ListCard(
+                  title: "Pessoal",
+                  color: Colors.purple[400]!,
+                  onTap: () {
+                    Navigator.of(context).pushNamed('pessoal');
+                  },
+                ),
+                ListCard(
+                  title: "Estudos",
+                  color: Colors.green[400]!,
+                  onTap: () {
+                    Navigator.of(context).pushNamed('estudos');
+                  },
+                ),
+              ],
+            ),
           ),
-        ),
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
@@ -68,7 +67,11 @@ class ArquivadosView extends StatelessWidget {
               child: Text('Nova Nota'),
             ),
           ],
-          child: const Icon(Icons.add, size: 50, color: Color.fromARGB(255, 41, 41, 41),),
+          child: const Icon(
+            Icons.add,
+            size: 50,
+            color: Color.fromARGB(255, 41, 41, 41),
+          ),
         ),
       ),
     );

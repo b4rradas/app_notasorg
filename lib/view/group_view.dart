@@ -10,7 +10,7 @@ class GroupView extends StatelessWidget {
 
   final NotasController controller = GetIt.I<NotasController>();
 
-    Color _getPriorityColor(String priorityTag) {   //Selecionando cor para prioridade da tarefa
+  Color _getPriorityColor(String priorityTag) {
     switch (priorityTag) {
       case 'Alta Prioridade':
         return Colors.red;
@@ -38,57 +38,58 @@ class GroupView extends StatelessWidget {
         title: Text(groupName),
         backgroundColor: groupColor,
       ),
-      body: Container(
-        width: double.infinity,
-        height: double.infinity,
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("assets/background_img.png"),   // Imagem de fundo
-            fit: BoxFit.cover,
-          ),
-        ),
-        child: ListView.builder(                //List View
-          itemCount: tasks.length,
-          itemBuilder: (context, index) {
-           final task = tasks[index];
-           return Container(
-              decoration: BoxDecoration(
-                color: const Color.fromARGB(255, 233, 229, 226),
-                borderRadius: BorderRadius.circular(8),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.shade400,
-                    blurRadius: 4,
-                    offset: const Offset(2, 2),
-                  ),
-                ],
+      body: Stack(
+        children: [
+          Container(
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("assets/background_img.png"),
+                fit: BoxFit.cover,
               ),
-              margin: const EdgeInsets.symmetric(vertical: 5),
-              child: ListTile(
-                leading: CircleAvatar(
-                  backgroundColor: _getPriorityColor(task.priorityTag),
-                  radius: 8,
+            ),
+          ),
+          ListView.builder(
+            itemCount: tasks.length,
+            itemBuilder: (context, index) {
+              final task = tasks[index];
+              return Container(
+                decoration: BoxDecoration(
+                  color: const Color.fromARGB(255, 233, 229, 226),
+                  borderRadius: BorderRadius.circular(8),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.shade400,
+                      blurRadius: 4,
+                      offset: const Offset(2, 2),
+                    ),
+                  ],
                 ),
-                title: Text(task.name),
-                subtitle: Text(task.description),
-                trailing: IconButton(
-                icon: Icon(Icons.delete),
-                onPressed: () {
-                  controller.removeTask(task);
-                  Navigator.pushNamedAndRemoveUntil(context, 'home', (route) => false);
-                },
+                margin: const EdgeInsets.symmetric(vertical: 5),
+                child: ListTile(
+                  leading: CircleAvatar(
+                    backgroundColor: _getPriorityColor(task.priorityTag),
+                    radius: 8,
+                  ),
+                  title: Text(task.name),
+                  subtitle: Text(task.description),
+                  trailing: IconButton(
+                    icon: Icon(Icons.delete),
+                    onPressed: () {
+                      controller.removeTask(task);
+                      Navigator.pushNamedAndRemoveUntil(context, 'home', (route) => false);
+                    },
+                  ),
                 ),
-              )
-            );
-          },
-        ),
-      )
+              );
+            },
+          ),
+        ],
+      ),
     );
   }
 }
 
-
-//Organizando Para cada grupo
+// Organizando Para cada grupo
 
 class PessoalView extends StatelessWidget {
   const PessoalView({super.key});

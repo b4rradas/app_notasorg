@@ -1,7 +1,6 @@
 import 'package:app_notasorg/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 
-
 class LixeiraView extends StatelessWidget {
   const LixeiraView({super.key});
 
@@ -13,17 +12,13 @@ class LixeiraView extends StatelessWidget {
         title: Text('Lixeira'),
         backgroundColor: Color.fromARGB(255, 74, 177, 233),
       ),
-
       body: Container(
-        width: double.infinity,
-        height: double.infinity,
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("assets/background_img.png"), // Imagem de fundo
+            image: AssetImage("assets/background_img.png"),
             fit: BoxFit.cover,
           ),
         ),
-
         child: Padding(
           padding: const EdgeInsets.all(10.0),
           child: ListView(
@@ -68,7 +63,11 @@ class LixeiraView extends StatelessWidget {
               child: Text('Nova Nota'),
             ),
           ],
-          child: const Icon(Icons.add, size: 50, color: Color.fromARGB(255, 41, 41, 41),),
+          child: const Icon(
+            Icons.add,
+            size: 50,
+            color: Color.fromARGB(255, 41, 41, 41),
+          ),
         ),
       ),
     );

@@ -12,54 +12,58 @@ class HomeView extends StatelessWidget {
         backgroundColor: const Color.fromARGB(255, 74, 177, 233),
       ),
       drawer: const SideBar(),
-      body: Container(
-        width: double.infinity,
-        height: double.infinity,
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("assets/background_img.png"),
-            fit: BoxFit.cover,
+      body: Stack(
+        children: [
+          Container(
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("assets/background_img.png"),
+                fit: BoxFit.cover,
+              ),
+            ),
           ),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Column(
-            children: [
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.25,
-                child: GroupCard(
-                  title: 'Trabalho',
-                  color: Colors.grey[300]!,
-                  onTap: () {
-                    Navigator.of(context).pushNamed('group_trabalho');
-                  },
-                ),
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.25,
+                    child: GroupCard(
+                      title: 'Trabalho',
+                      color: Colors.grey[300]!,
+                      onTap: () {
+                        Navigator.of(context).pushNamed('group_trabalho');
+                      },
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.25,
+                    child: GroupCard(
+                      title: 'Pessoal',
+                      color: Colors.purple[400]!,
+                      onTap: () {
+                        Navigator.of(context).pushNamed('group_pessoal');
+                      },
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.25,
+                    child: GroupCard(
+                      title: 'Estudos',
+                      color: Colors.green[400]!,
+                      onTap: () {
+                        Navigator.of(context).pushNamed('group_estudos');
+                      },
+                    ),
+                  ),
+                ],
               ),
-              const SizedBox(height: 10),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.25, 
-                child: GroupCard(
-                  title: 'Pessoal',
-                  color: Colors.purple[400]!,
-                  onTap: () {
-                    Navigator.of(context).pushNamed('group_pessoal');
-                  },
-                ),
-              ),
-              const SizedBox(height: 10),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.25,
-                child: GroupCard(
-                  title: 'Estudos',
-                  color: Colors.green[400]!,
-                  onTap: () {
-                    Navigator.of(context).pushNamed('group_estudos');
-                  },
-                ),
-              ),
-            ],
+            ),
           ),
-        ),
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
