@@ -1,4 +1,6 @@
+import 'package:app_notasorg/controller/notas_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 
 class SideBar extends StatelessWidget {   //Criando Drawer - SideBar
   const SideBar({super.key});
@@ -197,3 +199,43 @@ class ListCard extends StatelessWidget {
     );
   }
 }
+
+
+class GroupView extends StatelessWidget {
+  final String groupName;
+  final Color groupColor;
+
+  GroupView({super.key, required this.groupName, required this.groupColor});
+
+  final NotasController controller = GetIt.I<NotasController>();
+
+  @override
+  Widget build(BuildContext context) {
+    final tasks = controller.filterByGroup(groupName);
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(groupName),
+        backgroundColor: groupColor,
+      ),
+      body: ListView.builder(
+        itemCount: tasks.length,
+        itemBuilder: (context, index) {
+          final task = tasks[index];
+          return ListTile(
+            title: Text(task.name),
+            subtitle: Text(task.description),
+            trailing: IconButton(
+              icon: Icon(Icons.delete),
+              onPressed: () {
+                controller.removeTask(task);
+                Navigator.pop(context);
+              },
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
+

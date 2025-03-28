@@ -5,7 +5,6 @@ class Nota {
   String priorityTag; // "Alta Prioridade", "Média Prioridade", "Baixa Prioridade"
   Color color;
   String group; // "Trabalho", "Pessoal", "Estudos"
-  DateTime deadline;
   String description;
 
   Nota({
@@ -13,7 +12,6 @@ class Nota {
     required this.priorityTag,
     required this.color,
     required this.group,
-    required this.deadline,
     required this.description,
   });
 }

@@ -18,19 +18,6 @@ class _CriarnotaViewState extends State<CriarnotaView> {
   String _priorityTag = 'Média Prioridade';
   final Color _taskColor = Colors.pink;
   String _group = 'Pessoal';
-  late DateTime _deadline;
-
-  void _pickDeadline(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime.now(),
-      lastDate: DateTime(2100),
-    );
-    if (picked != null) {
-      setState(() => _deadline = picked);
-    }
-  }
 
   void _createTask() {
     if (_nameController.text.isEmpty) return;
@@ -40,10 +27,21 @@ class _CriarnotaViewState extends State<CriarnotaView> {
       priorityTag: _priorityTag,
       color: _taskColor,
       group: _group,
-      deadline: _deadline,
     );
     controller.addTask(newTask);
-    Navigator.pop(context);
+
+    // Redirecionar para a tela do grupo correspondente
+    switch (_group) {
+      case 'Pessoal':
+        Navigator.pushNamedAndRemoveUntil(context, '/pessoal', (route) => false);
+        break;
+      case 'Estudos':
+        Navigator.pushNamedAndRemoveUntil(context, '/estudos', (route) => false);
+        break;
+      case 'Trabalho':
+        Navigator.pushNamedAndRemoveUntil(context, 'group_trabalho', (route) => false);
+        break;
+    }
   }
 
   @override
@@ -72,12 +70,6 @@ class _CriarnotaViewState extends State<CriarnotaView> {
                   .map((e) => DropdownMenuItem(value: e, child: Text(e)))
                   .toList(),
               onChanged: (value) => setState(() => _group = value!),
-            ),
-            ElevatedButton(
-              onPressed: () => _pickDeadline(context),
-              child: Text(_deadline == null
-                  ? 'Escolher Prazo'
-                  : 'Prazo: ${_deadline!.toLocal()}'.split(' ')[0]),
             ),
             TextField(
               controller: _descriptionController,

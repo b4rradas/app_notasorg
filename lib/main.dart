@@ -1,11 +1,11 @@
 import 'package:app_notasorg/controller/cadastro_controller.dart';
 import 'package:app_notasorg/controller/login_controller.dart';
+import 'package:app_notasorg/controller/notas_controller.dart';
 import 'package:app_notasorg/view/arquivados_view.dart';
 import 'package:app_notasorg/view/cadastro_view.dart';
 import 'package:app_notasorg/view/concluidos_view.dart';
-import 'package:app_notasorg/view/group_estudos_view.dart';
-import 'package:app_notasorg/view/group_pessoal_view.dart';
-import 'package:app_notasorg/view/group_trabalho_view.dart';
+import 'package:app_notasorg/view/criarnota_view.dart';
+import 'package:app_notasorg/view/group_view.dart';
 import 'package:app_notasorg/view/home_view.dart';
 import 'package:app_notasorg/view/lixeira_view.dart';
 import 'package:app_notasorg/view/login_view.dart';
@@ -18,6 +18,7 @@ final g = GetIt.instance;
 void main() {
   g.registerSingleton<LoginController>(LoginController());          //Registrando Controllers
   g.registerSingleton<CadastroController>(CadastroController());
+  g.registerSingleton<NotasController>(NotasController());
   runApp(
     DevicePreview(builder: (context) => const MainApp())
   );
@@ -42,9 +43,10 @@ class MainApp extends StatelessWidget {
         'concluidos': (context) => ConcluidosView(),
         'lixeira': (context) => LixeiraView(),
         'arquivados': (context) => ArquivadosView(),
-        'group_trabalho': (context) => GroupTrabalhoView(),
-        'group_pessoal': (context) => GroupPessoalView(),
-        'group_estudos': (context) => GroupEstudosView(),
+        'criar_nota': (context) => CriarnotaView(),
+        'group_trabalho': (context) => TrabalhoView(),
+        'group_pessoal': (context) => PessoalView(),
+        'group_estudos': (context) => EstudosView(),
       },
       builder: DevicePreview.appBuilder,
     );
