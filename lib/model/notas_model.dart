@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class Task {
+class Nota {
   String name;
   String priorityTag; // "Alta Prioridade", "Média Prioridade", "Baixa Prioridade"
   Color color;
@@ -8,7 +8,7 @@ class Task {
   DateTime deadline;
   String description;
 
-  Task({
+  Nota({
     required this.name,
     required this.priorityTag,
     required this.color,
