@@ -12,7 +12,7 @@ class SobreView extends StatelessWidget {
         title: Text('Sobre'),
         backgroundColor: Color.fromARGB(255, 74, 177, 233),
       ),
-      body: Stack( // Usando Stack para sobrepor o background e o container centralizado
+      body: Stack(
         children: [
           Container(
             decoration: BoxDecoration(
@@ -22,7 +22,7 @@ class SobreView extends StatelessWidget {
               ),
             ),
           ),
-          Center( // Usando Center para centralizar o container
+          Center( 
             child: Container(
               padding: EdgeInsets.symmetric(vertical: 40, horizontal: 40),
               decoration: BoxDecoration(
@@ -30,23 +30,24 @@ class SobreView extends StatelessWidget {
                 borderRadius: BorderRadius.all(Radius.circular(10)),
               ),
               child: Column(
-                mainAxisSize: MainAxisSize.min, // Ajusta o tamanho da coluna ao conteúdo
+                mainAxisSize: MainAxisSize.min, 
                 children: [
                   CircleAvatar(
                     radius: 75,
                     backgroundImage: AssetImage("assets/Lucas_Hisaimtsu_Profile.jpg"),
                   ),
-                  SizedBox(height: 20), // Espaçamento entre o avatar e o texto
+                  SizedBox(height: 20), 
                   Text(
-                    'Lucas Hisaimtsu', // Adicione o nome ou informações aqui
+                    'Lucas Hisaimtsu', 
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(height: 10),
                   Text(
-                    'Desenvolvedor do aplicativo NotasOrg.', // Adicione mais informações aqui
+                    'Desenvolvedor do aplicativo NotasOrg.', // Adicionar mais informações do aplicativo
                     textAlign: TextAlign.center,
                   ),
-                  // Adicione mais widgets aqui, se necessário
+                  // Adicionar mais widgets:
+                  //Contato, Sobre o App
                 ],
               ),
             ),
