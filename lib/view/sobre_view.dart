@@ -43,7 +43,7 @@ class SobreView extends StatelessWidget {
                   ),
                   SizedBox(height: 10),
                   Text(
-                    'Desenvolvedor do aplicativo NotasOrg.', // Adicionar mais informações do aplicativo
+                    'Desenvolvedor do aplicativo NotasOrg.', // Adicionar mais informações
                     textAlign: TextAlign.center,
                   ),
                   // Adicionar mais widgets:
