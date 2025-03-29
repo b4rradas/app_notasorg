@@ -38,13 +38,16 @@ class SobreView extends StatelessWidget {
                   ),
                   SizedBox(height: 20), 
                   Text(
-                    'Lucas Hisaimtsu', 
+                    'Lucas Barradas Hisaimtsu', 
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(height: 10),
                   Text(
                     'Desenvolvedor do aplicativo NotasOrg.', // Adicionar mais informações
                     textAlign: TextAlign.center,
+                  ),
+                  Text(
+                    'Aplicativo criado com o intuito de ser um organizador de notas com diferentes categorias e prioridades'
                   ),
                   // Adicionar mais widgets:
                   //Contato, Sobre o App
