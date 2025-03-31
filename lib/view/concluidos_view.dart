@@ -1,16 +1,21 @@
-import 'package:app_notasorg/widgets/widgets.dart';
+import 'package:app_notasorg/controller/notas_controller.dart';
+import 'package:app_notasorg/widgets/widgets.dart'; // Se o SideBar estiver aqui
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 
 class ConcluidosView extends StatelessWidget {
   const ConcluidosView({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final NotasController controller = GetIt.I<NotasController>();
+    final concludedTasks = controller.concludedtask; // Lista de tarefas concluídas
+
     return Scaffold(
-      drawer: SideBar(),
+      drawer: const SideBar(),
       appBar: AppBar(
-        title: Text('Concluidos'),
-        backgroundColor: Color.fromARGB(255, 74, 177, 233),
+        title: const Text('Concluídos'),
+        backgroundColor: const Color.fromARGB(255, 74, 177, 233),
       ),
       body: Stack(
         children: [
@@ -24,36 +29,40 @@ class ConcluidosView extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.all(10.0),
-            child: ListView(
-              children: [
-                ListCard(
-                  title: "Trabalho",
-                  color: Colors.grey[300]!,
-                  onTap: () {
-                    Navigator.of(context).pushNamed('trabalho');
-                  },
-                ),
-                ListCard(
-                  title: "Pessoal",
-                  color: Colors.purple[400]!,
-                  onTap: () {
-                    Navigator.of(context).pushNamed('pessoal');
-                  },
-                ),
-                ListCard(
-                  title: "Estudos",
-                  color: Colors.green[400]!,
-                  onTap: () {
-                    Navigator.of(context).pushNamed('estudos');
-                  },
-                ),
-              ],
-            ),
+            child: concludedTasks.isEmpty
+                ? const Center(child: Text('Sem tarefas concluídas'))
+                : ListView.builder(
+                    itemCount: concludedTasks.length,
+                    itemBuilder: (context, index) {
+                      final task = concludedTasks[index];
+                      return Container(
+                        decoration: BoxDecoration(
+                          color: const Color.fromARGB(255, 233, 229, 226),
+                          borderRadius: BorderRadius.circular(8),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.shade400,
+                              blurRadius: 4,
+                              offset: const Offset(2, 2),
+                            ),
+                          ],
+                        ),
+                        margin: const EdgeInsets.symmetric(vertical: 5),
+                        child: ListTile(
+                          leading: Icon(Icons.check_circle, color: Colors.green),
+                          title: Text(task.name),
+                          subtitle: Text(task.description),
+                        ),
+                      );
+                    },
+                  ),
           ),
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.of(context).pushNamed('criar_nota');
+        },
         backgroundColor: const Color.fromARGB(76, 0, 0, 0),
         child: PopupMenuButton<String>(
           onSelected: (value) {
@@ -61,8 +70,8 @@ class ConcluidosView extends StatelessWidget {
               Navigator.of(context).pushNamed('criar_nota');
             }
           },
-          itemBuilder: (context) => [
-            const PopupMenuItem(
+          itemBuilder: (context) => const [
+            PopupMenuItem(
               value: 'nova_nota',
               child: Text('Nova Nota'),
             ),
