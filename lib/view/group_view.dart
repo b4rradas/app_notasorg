@@ -168,7 +168,6 @@ class _NotaTileState extends State<NotaTile> {
             // Lógica para outras ações (Arquivar, Excluir, etc.)
 
 
-
           },
           itemBuilder: (context) => [
             const PopupMenuItem(value: 'editar', child: Text('Editar')),
