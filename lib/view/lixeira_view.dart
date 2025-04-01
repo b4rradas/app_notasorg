@@ -18,6 +18,7 @@ class LixeiraView extends StatelessWidget {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Tarefa removida permanentemente')),
       );
+      Navigator.of(context).pushReplacementNamed('lixeira');
     }
 
     void emptyTrash() {
