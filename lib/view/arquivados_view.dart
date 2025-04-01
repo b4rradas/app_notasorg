@@ -53,12 +53,18 @@ class ArquivadosView extends StatelessWidget {
                           subtitle: Text(task.description),
                           trailing: PopupMenuButton<String>(
                             onSelected: (value) {
+                              if (value == 'lixeira'){
+                                controller.deleteTask(task);
+                                Navigator.pushNamedAndRemoveUntil(context, 'lixeira', (route) => false);
+                              }
+                              else if (value == 'restaurar'){
+                                controller.restoreTask(task);
+                                Navigator.pushNamedAndRemoveUntil(context, 'home', (route) => false);
+                              }
                             },
                             itemBuilder: (context) => const [
-                              PopupMenuItem(
-                                value: '',
-                                child: Text('placeholder'),
-                              ),
+                              PopupMenuItem(value: 'lixeira', child: Text('Excluir')),
+                              PopupMenuItem(value: 'restaurar', child: Text('Restaurar')),
                             ],
                           ),
                         ),

@@ -40,6 +40,11 @@ class NotasController {
     _archivedtask.add(task);
   }
 
+  void restoreTask(Nota task) {
+    _archivedtask.remove(task);
+    _tasks.add(task);
+  }
+
   void deleteTask(Nota task) {
     _tasks.remove(task);
     _deletedtask.add(task);
