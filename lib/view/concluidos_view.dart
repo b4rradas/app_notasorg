@@ -11,6 +11,16 @@ class ConcluidosView extends StatelessWidget {
     final NotasController controller = GetIt.I<NotasController>();
     final concludedTasks = controller.concludedtask; // Lista de tarefas concluídas
 
+    void moveToTrash(task) {
+      controller.deleteTask(task); 
+      concludedTasks.remove(task); 
+      Navigator.pushNamedAndRemoveUntil(
+        context,
+        'lixeira',
+        (route) => false,
+      );
+    }
+
     return Scaffold(
       drawer: const SideBar(),
       appBar: AppBar(
@@ -52,6 +62,16 @@ class ConcluidosView extends StatelessWidget {
                           leading: Icon(Icons.check_circle, color: Colors.green),
                           title: Text(task.name),
                           subtitle: Text(task.description),
+                          trailing: PopupMenuButton<String>(
+                            onSelected: (value) {
+                              if (value == 'lixeira'){
+                                moveToTrash(task);
+                              }
+                            },
+                            itemBuilder: (context) => [
+                              const PopupMenuItem(value: 'lixeira', child: Text('Excluir')),
+                            ],
+                          ),
                         ),
                       );
                     },

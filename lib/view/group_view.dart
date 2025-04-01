@@ -11,7 +11,7 @@ class GroupView extends StatelessWidget {
 
   final NotasController controller = GetIt.I<NotasController>();
 
-  // Retorna a cor de acordo com a prioridade da tarefa
+  //Cor prioridade da nota
   Color _getPriorityColor(String priorityTag) {
     switch (priorityTag) {
       case 'Alta Prioridade':
@@ -62,6 +62,30 @@ class GroupView extends StatelessWidget {
           ),
         ],
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context).pushNamed('criar_nota');
+        },
+        backgroundColor: const Color.fromARGB(76, 0, 0, 0),
+        child: PopupMenuButton<String>(
+          onSelected: (value) {
+            if (value == 'nova_nota') {
+              Navigator.of(context).pushNamed('criar_nota');
+            }
+          },
+          itemBuilder: (context) => const [
+            PopupMenuItem(
+              value: 'nova_nota',
+              child: Text('Nova Nota'),
+            ),
+          ],
+          child: const Icon(
+            Icons.add,
+            size: 50,
+            color: Color.fromARGB(255, 41, 41, 41),
+          ),
+        ),
+      ),
     );
   }
 }
@@ -82,7 +106,6 @@ class _NotaTileState extends State<NotaTile> {
 
   void _onCheckboxChanged(bool? value) async {
     if (value == true) {
-      // Exibe o alerta para confirmar a conclusão
       final confirm = await showDialog<bool>(
         context: context,
         builder: (context) => AlertDialog(
@@ -117,7 +140,6 @@ class _NotaTileState extends State<NotaTile> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      // Fundo branco acinzentado e borda colorida à direita
       decoration: BoxDecoration(
         color: const Color.fromARGB(255, 233, 229, 226),
         borderRadius: BorderRadius.circular(8),
@@ -144,9 +166,12 @@ class _NotaTileState extends State<NotaTile> {
         trailing: PopupMenuButton<String>(
           onSelected: (value) {
             // Lógica para outras ações (Arquivar, Excluir, etc.)
+
+
+
           },
           itemBuilder: (context) => [
-            const PopupMenuItem(value: 'concluida', child: Text('Concluir')),
+            const PopupMenuItem(value: 'editar', child: Text('Editar')),
             const PopupMenuItem(value: 'lixeira', child: Text('Excluir')),
             const PopupMenuItem(value: 'arquivado', child: Text('Arquivar')),
           ],
@@ -157,8 +182,8 @@ class _NotaTileState extends State<NotaTile> {
 }
 
 
-// Organizando Para cada grupo
 
+// Organizando Para cada grupo
 class PessoalView extends StatelessWidget {
   const PessoalView({super.key});
 
