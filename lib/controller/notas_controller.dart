@@ -33,6 +33,7 @@ class NotasController {
     _tasks.remove(task);
     _concludedtask.add(task);
   }
+  
 
   void archiveTask(Nota task) {
     _tasks.remove(task);

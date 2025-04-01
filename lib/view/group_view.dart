@@ -10,6 +10,7 @@ class GroupView extends StatelessWidget {
   GroupView({super.key, required this.groupName, required this.groupColor});
 
   final NotasController controller = GetIt.I<NotasController>();
+  
 
   //Cor prioridade da nota
   Color _getPriorityColor(String priorityTag) {
@@ -96,6 +97,8 @@ class NotaTile extends StatefulWidget {
 
   const NotaTile({super.key, required this.task, required this.priorityColor});
 
+  
+
   @override
   _NotaTileState createState() => _NotaTileState();
 }
@@ -137,6 +140,7 @@ class _NotaTileState extends State<NotaTile> {
     }
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -166,6 +170,10 @@ class _NotaTileState extends State<NotaTile> {
         trailing: PopupMenuButton<String>(
           onSelected: (value) {
             // Lógica para outras ações (Arquivar, Excluir, etc.)
+            if (value == 'lixeira'){
+              controller.deleteTask(widget.task);
+              Navigator.pushNamedAndRemoveUntil(context, 'lixeira', (route) => false);
+            }
 
 
           },
