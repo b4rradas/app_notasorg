@@ -166,10 +166,8 @@ class _NotaTileState extends State<NotaTile> {
         ),
         title: Text(widget.task.name),
         subtitle: Text(widget.task.description),
-        // Você pode manter o PopupMenuButton se desejar ações extras
         trailing: PopupMenuButton<String>(
           onSelected: (value) {
-            // Lógica para outras ações (Arquivar, Excluir, etc.)
             if (value == 'lixeira'){
               controller.deleteTask(widget.task);
               Navigator.pushNamedAndRemoveUntil(context, 'lixeira', (route) => false);
@@ -177,6 +175,11 @@ class _NotaTileState extends State<NotaTile> {
             else if (value == 'arquivado'){
               controller.archiveTask(widget.task);
               Navigator.pushNamed(context, 'arquivados');
+            }
+            else if (value == 'editar'){
+              // -----------------------------------------------------------------------
+              // CRIAR TELA EDITAR JUNTO COM LOGICA PARA IR PARA TELA DE EDIÇÃO DE NOTAS
+              // -----------------------------------------------------------------------
             }
 
           },

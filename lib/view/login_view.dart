@@ -2,6 +2,9 @@ import 'package:app_notasorg/controller/login_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
+//CRIAR BOTÃO ESQUECEU A SENHA
+
+
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
 
