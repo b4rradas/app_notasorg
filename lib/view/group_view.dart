@@ -176,7 +176,7 @@ class _NotaTileState extends State<NotaTile> {
             }
             else if (value == 'arquivado'){
               controller.archiveTask(widget.task);
-              Navigator.pushNamedAndRemoveUntil(context, 'arquivados', (route) => false);
+              Navigator.pushNamed(context, 'arquivados');
             }
 
           },

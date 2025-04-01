@@ -59,7 +59,7 @@ class ArquivadosView extends StatelessWidget {
                               }
                               else if (value == 'restaurar'){
                                 controller.restoreTask(task);
-                                Navigator.pushNamedAndRemoveUntil(context, 'home', (route) => false);
+                                Navigator.pop(context);
                               }
                             },
                             itemBuilder: (context) => const [
