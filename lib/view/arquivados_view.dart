@@ -1,16 +1,21 @@
+import 'package:app_notasorg/controller/notas_controller.dart';
 import 'package:app_notasorg/widgets/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 
 class ArquivadosView extends StatelessWidget {
   const ArquivadosView({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final NotasController controller = GetIt.I<NotasController>();
+    final archivedTask = controller.archivedtask; 
+
     return Scaffold(
-      drawer: SideBar(),
+      drawer: const SideBar(),
       appBar: AppBar(
-        title: Text('Arquivados'),
-        backgroundColor: Color.fromARGB(255, 74, 177, 233),
+        title: const Text('Arquivados'),
+        backgroundColor: const Color.fromARGB(255, 74, 177, 233),
       ),
       body: Stack(
         children: [
@@ -24,36 +29,49 @@ class ArquivadosView extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.all(10.0),
-            child: ListView(
-              children: [
-                ListCard(
-                  title: "Trabalho",
-                  color: Colors.grey[300]!,
-                  onTap: () {
-                    Navigator.of(context).pushNamed('trabalho');
-                  },
-                ),
-                ListCard(
-                  title: "Pessoal",
-                  color: Colors.purple[400]!,
-                  onTap: () {
-                    Navigator.of(context).pushNamed('pessoal');
-                  },
-                ),
-                ListCard(
-                  title: "Estudos",
-                  color: Colors.green[400]!,
-                  onTap: () {
-                    Navigator.of(context).pushNamed('estudos');
-                  },
-                ),
-              ],
-            ),
+            child: archivedTask.isEmpty
+                ? const Center(child: Text('Nenhuma nota arquivada'))
+                : ListView.builder(
+                    itemCount: archivedTask.length,
+                    itemBuilder: (context, index) {
+                      final task = archivedTask[index];
+                      return Container(
+                        decoration: BoxDecoration(
+                          color: const Color.fromARGB(255, 233, 229, 226),
+                          borderRadius: BorderRadius.circular(8),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.shade400,
+                              blurRadius: 4,
+                              offset: const Offset(2, 2),
+                            ),
+                          ],
+                        ),
+                        margin: const EdgeInsets.symmetric(vertical: 5),
+                        child: ListTile(
+                          title: Text(task.name),
+                          subtitle: Text(task.description),
+                          trailing: PopupMenuButton<String>(
+                            onSelected: (value) {
+                            },
+                            itemBuilder: (context) => const [
+                              PopupMenuItem(
+                                value: '',
+                                child: Text('placeholder'),
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  ),
           ),
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.of(context).pushNamed('criar_nota');
+        },
         backgroundColor: const Color.fromARGB(76, 0, 0, 0),
         child: PopupMenuButton<String>(
           onSelected: (value) {
@@ -61,8 +79,8 @@ class ArquivadosView extends StatelessWidget {
               Navigator.of(context).pushNamed('criar_nota');
             }
           },
-          itemBuilder: (context) => [
-            const PopupMenuItem(
+          itemBuilder: (context) => const [
+            PopupMenuItem(
               value: 'nova_nota',
               child: Text('Nova Nota'),
             ),

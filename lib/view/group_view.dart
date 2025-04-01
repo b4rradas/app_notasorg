@@ -174,7 +174,10 @@ class _NotaTileState extends State<NotaTile> {
               controller.deleteTask(widget.task);
               Navigator.pushNamedAndRemoveUntil(context, 'lixeira', (route) => false);
             }
-
+            else if (value == 'arquivado'){
+              controller.archiveTask(widget.task);
+              Navigator.pushNamedAndRemoveUntil(context, 'arquivados', (route) => false);
+            }
 
           },
           itemBuilder: (context) => [
