@@ -28,7 +28,6 @@ class _CriarnotaViewState extends State<CriarnotaView> {
     );
     controller.addTask(newTask);
 
-    // Redirecionar para a tela do grupo correspondente
     switch (_group) {
       case 'Pessoal':
         Navigator.pushNamedAndRemoveUntil(context, 'group_pessoal', (route) => false);
@@ -45,7 +44,10 @@ class _CriarnotaViewState extends State<CriarnotaView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Nova Tarefa')),
+      appBar: AppBar(
+        title: const Text('Nova Nota'),
+        backgroundColor: Color.fromARGB(255, 74, 177, 233),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(

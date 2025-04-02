@@ -1,5 +1,6 @@
 import 'package:app_notasorg/controller/notas_controller.dart';
 import 'package:app_notasorg/model/notas_model.dart';
+import 'package:app_notasorg/view/editar_notas_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
@@ -177,11 +178,13 @@ class _NotaTileState extends State<NotaTile> {
               Navigator.pushNamed(context, 'arquivados');
             }
             else if (value == 'editar'){
-              // -----------------------------------------------------------------------
-              // CRIAR TELA EDITAR JUNTO COM LOGICA PARA IR PARA TELA DE EDIÇÃO DE NOTAS
-              // -----------------------------------------------------------------------
+               Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => EditarNotaView(nota: widget.task),
+                ),
+              );
             }
-
           },
           itemBuilder: (context) => [
             const PopupMenuItem(value: 'editar', child: Text('Editar')),

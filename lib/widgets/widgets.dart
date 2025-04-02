@@ -77,6 +77,8 @@ class SideBar extends StatelessWidget {   //Criando Drawer - SideBar
           Navigator.of(context).pushNamed('sobre');
         },
       )
+
+      //ADICIONAR BOTÃO SAIR
     ],
   );
 }
