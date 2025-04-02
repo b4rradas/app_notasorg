@@ -1,4 +1,4 @@
-import 'package:app_notasorg/model/usuario.dart';
+import 'package:app_notasorg/model/usuario_model.dart';
 import 'package:flutter/material.dart';
 
 class CadastroController {

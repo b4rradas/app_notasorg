@@ -1,5 +1,5 @@
 import 'package:app_notasorg/controller/cadastro_controller.dart';
-import 'package:app_notasorg/model/usuario.dart';
+import 'package:app_notasorg/model/usuario_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
@@ -9,7 +9,7 @@ class LoginController {
   final TextEditingController txtLoginEmail = TextEditingController();
   final TextEditingController txtLoginSenha = TextEditingController();
 
-  bool validarLogin(String email, String senha) {
+  bool validarLogin(String email, String senha) {     //Validando se usuario ja esta cadastrado
     if (cadastroController.newUsuario == null) {
       // Nenhum usuário cadastrado ainda
       return false;
