@@ -8,6 +8,8 @@ class CadastroController {
   final TextEditingController txtCadastroSenha = TextEditingController();
   final TextEditingController txtCadastroConfSenha = TextEditingController();
 
+  Usuario? newUsuario;
+
   bool validateFields() {   //Validar para campo vazio
     if (txtCadastroEmail.text.isEmpty || txtCadastroNome.text.isEmpty || txtCadastroNumero.text.isEmpty 
     || txtCadastroSenha.text.isEmpty || txtCadastroConfSenha.text.isEmpty){
@@ -65,10 +67,11 @@ class CadastroController {
 
     void cadastrar(){
     // ignore: unused_local_variable
-    Usuario newUsuario = Usuario(
-      nome: txtCadastroNome.text, 
-      senha: txtCadastroSenha.text, 
-      email: txtCadastroEmail.text, 
-      numero: txtCadastroNumero.text);
+      newUsuario = Usuario(
+        nome: txtCadastroNome.text, 
+        senha: txtCadastroSenha.text, 
+        email: txtCadastroEmail.text, 
+        numero: txtCadastroNumero.text
+      );
   }
 }

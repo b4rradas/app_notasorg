@@ -17,8 +17,8 @@ import 'package:get_it/get_it.dart';
 final g = GetIt.instance;
 
 void main() {
-  g.registerSingleton<LoginController>(LoginController());          //Registrando Controllers
   g.registerSingleton<CadastroController>(CadastroController());
+  g.registerSingleton<LoginController>(LoginController());          //Registrando Controllers
   g.registerSingleton<NotasController>(NotasController());
   runApp(
     DevicePreview(builder: (context) => const MainApp())

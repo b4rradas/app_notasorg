@@ -1,8 +1,22 @@
+import 'package:app_notasorg/controller/cadastro_controller.dart';
+import 'package:app_notasorg/model/usuario.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 
 class LoginController {
+  final CadastroController cadastroController = GetIt.I<CadastroController>();
+
   final TextEditingController txtLoginEmail = TextEditingController();
   final TextEditingController txtLoginSenha = TextEditingController();
+
+  bool validarLogin(String email, String senha) {
+    if (cadastroController.newUsuario == null) {
+      // Nenhum usuário cadastrado ainda
+      return false;
+    }
+    Usuario usuario = cadastroController.newUsuario!;
+    return usuario.email.trim().toLowerCase() == email.trim().toLowerCase() && usuario.senha == senha;
+  }
 
   bool validateField(){     //Validar campo vazio
     if (txtLoginEmail.text.isEmpty || txtLoginSenha.text.isEmpty) {

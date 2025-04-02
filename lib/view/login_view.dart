@@ -2,9 +2,6 @@ import 'package:app_notasorg/controller/login_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
-//CRIAR BOTÃO ESQUECEU A SENHA
-
-
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
 
@@ -13,7 +10,7 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginViewState extends State<LoginView> {
-  final LoginController controller = GetIt.I<LoginController>();            
+  final LoginController controller = GetIt.I<LoginController>();
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -46,7 +43,14 @@ class _LoginViewState extends State<LoginView> {
               ElevatedButton(
                 onPressed: () {
                   if (controller.validateField()) {
-                    Navigator.pushNamed(context, 'home');
+                    if (controller.validarLogin(controller.txtLoginEmail.text, controller.txtLoginSenha.text)){
+                      Navigator.pushNamed(context, 'home');
+                    }
+                    else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text('Email ou senha incorretos')),
+                      );
+                    }
                   } else {
                     controller.showAlertDialog(context);
                   }
@@ -54,6 +58,11 @@ class _LoginViewState extends State<LoginView> {
                 child: Text('Entrar'),
               ),
               
+              TextButton(
+                onPressed: () => Navigator.pushNamed(context, ''),
+                child: Text('Esqueci a Senha'),
+              ),
+
               TextButton(
                 onPressed: () => Navigator.pushNamed(context, 'cadastro'),
                 child: Text('Criar Conta'),
