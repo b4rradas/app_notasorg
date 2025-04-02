@@ -76,9 +76,16 @@ class SideBar extends StatelessWidget {   //Criando Drawer - SideBar
 
           Navigator.of(context).pushNamed('sobre');
         },
-      )
+      ),
 
-      //ADICIONAR BOTÃO SAIR
+      ListTile(
+        leading: Icon(Icons.exit_to_app, size: 30,),
+        title: Text('Sair', style: TextStyle(fontSize: 22),),
+        onTap: () {
+          Navigator.pop(context);
+          Navigator.pushNamedAndRemoveUntil(context, 'login', (route) => false);
+        },
+      )
     ],
   );
 }
