@@ -11,6 +11,13 @@ class ArquivadosView extends StatelessWidget {
     final NotasController controller = GetIt.I<NotasController>();
     final archivedTask = controller.archivedtask; 
 
+    void movetoTrashfromArchived(task){
+      controller.deleteTask(task);
+      archivedTask.remove(task);
+      Navigator.pushNamedAndRemoveUntil(context, 'lixeira', (route) => false);
+
+    }
+
     return Scaffold(
       drawer: const SideBar(),
       appBar: AppBar(
@@ -54,8 +61,7 @@ class ArquivadosView extends StatelessWidget {
                           trailing: PopupMenuButton<String>(
                             onSelected: (value) {
                               if (value == 'lixeira'){
-                                controller.deleteTask(task);
-                                Navigator.pushNamedAndRemoveUntil(context, 'lixeira', (route) => false);
+                                movetoTrashfromArchived(task);
                               }
                               else if (value == 'restaurar'){
                                 controller.restoreTask(task);

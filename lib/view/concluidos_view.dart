@@ -11,14 +11,10 @@ class ConcluidosView extends StatelessWidget {
     final NotasController controller = GetIt.I<NotasController>();
     final concludedTasks = controller.concludedtask; // Lista de tarefas concluídas
 
-    void moveToTrash(task) {
+    void moveToTrashfromConcluded(task) {
       controller.deleteTask(task); 
       concludedTasks.remove(task); 
-      Navigator.pushNamedAndRemoveUntil(
-        context,
-        'lixeira',
-        (route) => false,
-      );
+      Navigator.pushNamedAndRemoveUntil(context, 'lixeira', (route) => false);
     }
 
     return Scaffold(
@@ -65,7 +61,7 @@ class ConcluidosView extends StatelessWidget {
                           trailing: PopupMenuButton<String>(
                             onSelected: (value) {
                               if (value == 'lixeira'){
-                                moveToTrash(task);
+                                moveToTrashfromConcluded(task);
                               }
                             },
                             itemBuilder: (context) => [
