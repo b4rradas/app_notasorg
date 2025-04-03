@@ -37,53 +37,45 @@ class ArquivadosView extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(10.0),
             child: archivedTask.isEmpty
-                ? const Center(child: Text('Nenhuma nota arquivada'))
+                ? const Center(child: Text('Nenhuma nota arquivada', 
+                style: TextStyle(fontWeight: FontWeight.bold)))
                 : ListView.builder(
                     itemCount: archivedTask.length,
                     itemBuilder: (context, index) {
                       final task = archivedTask[index];
-                      return GestureDetector(
-                        onTap: () => showModalBottomSheet(
-                          context: context, 
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.vertical(top: Radius.circular(20))
-                          ),
-                          builder: (_) => DetalhesNotaWidget(task: task)
+                      return Container(
+                        decoration: BoxDecoration(
+                          color: const Color.fromARGB(255, 233, 229, 226),
+                          borderRadius: BorderRadius.circular(8),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.shade400,
+                              blurRadius: 4,
+                              offset: const Offset(2, 2),
+                            ),
+                          ],
                         ),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: const Color.fromARGB(255, 233, 229, 226),
-                            borderRadius: BorderRadius.circular(8),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.shade400,
-                                blurRadius: 4,
-                                offset: const Offset(2, 2),
-                              ),
+                        margin: const EdgeInsets.symmetric(vertical: 5),
+                        child: ListTile(
+                          title: Text(task.name),
+                          subtitle: Text(task.description),
+                          trailing: PopupMenuButton<String>(
+                            onSelected: (value) {
+                              if (value == 'lixeira'){
+                                movetoTrashfromArchived(task);
+                              }
+                              else if (value == 'restaurar'){
+                                controller.restoreTask(task);
+                                Navigator.pop(context);
+                              }
+                            },
+                            itemBuilder: (context) => const [
+                              PopupMenuItem(value: 'lixeira', child: Text('Excluir')),
+                              PopupMenuItem(value: 'restaurar', child: Text('Restaurar')),
                             ],
                           ),
-                          margin: const EdgeInsets.symmetric(vertical: 5),
-                          child: ListTile(
-                            title: Text(task.name),
-                            subtitle: Text(task.description),
-                            trailing: PopupMenuButton<String>(
-                              onSelected: (value) {
-                                if (value == 'lixeira'){
-                                  movetoTrashfromArchived(task);
-                                }
-                                else if (value == 'restaurar'){
-                                  controller.restoreTask(task);
-                                  Navigator.pop(context);
-                                }
-                              },
-                              itemBuilder: (context) => const [
-                                PopupMenuItem(value: 'lixeira', child: Text('Excluir')),
-                                PopupMenuItem(value: 'restaurar', child: Text('Restaurar')),
-                              ],
-                            ),
-                          ),
-                        )
-                      );
+                        ),
+                      );                      
                     },
                   ),
           ),

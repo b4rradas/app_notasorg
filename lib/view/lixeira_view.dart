@@ -63,7 +63,8 @@ class LixeiraView extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(10.0),
             child: deletedTasks.isEmpty
-                ? const Center(child: Text('Lixeira Vazia'))
+                ? const Center(child: Text('Lixeira Vazia', 
+                style: TextStyle(fontWeight: FontWeight.bold)))
                 : ListView.builder(
                     itemCount: deletedTasks.length,
                     itemBuilder: (context, index) {

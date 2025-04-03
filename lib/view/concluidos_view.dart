@@ -36,7 +36,8 @@ class ConcluidosView extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(10.0),
             child: concludedTasks.isEmpty
-                ? const Center(child: Text('Sem tarefas concluídas'))
+                ? const Center(child: Text('Sem tarefas concluídas', 
+                style: TextStyle(fontWeight: FontWeight.bold)))
                 : ListView.builder(
                     itemCount: concludedTasks.length,
                     itemBuilder: (context, index) {
