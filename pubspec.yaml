@@ -20,7 +20,9 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
-  assets:
+  assets:    
     - assets/background_img.png
     - assets/icons/circle-plus.png
     - assets/Lucas_Hisaimtsu_Profile.jpg
+    - assets/logo_img.jpg
+    
