@@ -59,7 +59,7 @@ class _LoginViewState extends State<LoginView> {
               ),
               
               TextButton(
-                onPressed: () => Navigator.pushNamed(context, ''),
+                onPressed: () => Navigator.pushNamed(context, 'esqueci_senha'),
                 child: Text('Esqueci a Senha'),
               ),
 

@@ -5,6 +5,7 @@ import 'package:app_notasorg/view/arquivados_view.dart';
 import 'package:app_notasorg/view/cadastro_view.dart';
 import 'package:app_notasorg/view/concluidos_view.dart';
 import 'package:app_notasorg/view/criarnota_view.dart';
+import 'package:app_notasorg/view/esqueci_senha_view.dart';
 import 'package:app_notasorg/view/group_view.dart';
 import 'package:app_notasorg/view/home_view.dart';
 import 'package:app_notasorg/view/lixeira_view.dart';
@@ -49,6 +50,7 @@ class MainApp extends StatelessWidget {
         'group_pessoal': (context) => PessoalView(),
         'group_estudos': (context) => EstudosView(),
         'sobre':(context) => SobreView(),
+        'esqueci_senha': (context) => EsqueciSenhaView(),
       },
       builder: DevicePreview.appBuilder,
     );
