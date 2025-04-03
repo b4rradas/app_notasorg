@@ -1,3 +1,4 @@
+import 'package:app_notasorg/model/notas_model.dart';
 import 'package:flutter/material.dart';
 
 class SideBar extends StatelessWidget {   //Criando Drawer - SideBar
@@ -90,6 +91,7 @@ class SideBar extends StatelessWidget {   //Criando Drawer - SideBar
   );
 }
 
+
 class GroupCard extends StatelessWidget {     //Crição dos grupos
   final String title;
   final Color color;
@@ -168,6 +170,7 @@ class GroupCard extends StatelessWidget {     //Crição dos grupos
   }
 }
 
+
 Color darkenColor(Color color, double fator) {  //Escurecer a cor para o topo do grupo
   HSVColor hsv = HSVColor.fromColor(color);
   HSVColor novaCor = hsv.withValue((hsv.value * fator).clamp(0.0, 1.0));
@@ -207,3 +210,32 @@ class ListCard extends StatelessWidget {    //Criação dos cartões de lista
   }
 }
 
+
+class DetalhesNotaWidget extends StatelessWidget {
+  final Nota task;
+
+  const DetalhesNotaWidget({super.key, required this.task});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            task.name,
+            style:  TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+          ),
+          SizedBox(height: 10),
+          Text(
+            task.description,
+            style: TextStyle(fontSize: 20),
+          ),
+          SizedBox(height: 20)
+        ],
+      ),
+    );
+  }
+}
