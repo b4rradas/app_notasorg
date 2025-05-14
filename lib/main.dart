@@ -1,6 +1,7 @@
 import 'package:app_notasorg/controller/cadastro_controller.dart';
 import 'package:app_notasorg/controller/login_controller.dart';
 import 'package:app_notasorg/controller/notas_controller.dart';
+import 'package:app_notasorg/firebase_options.dart';
 import 'package:app_notasorg/view/arquivados_view.dart';
 import 'package:app_notasorg/view/cadastro_view.dart';
 import 'package:app_notasorg/view/concluidos_view.dart';
@@ -12,12 +13,18 @@ import 'package:app_notasorg/view/lixeira_view.dart';
 import 'package:app_notasorg/view/login_view.dart';
 import 'package:app_notasorg/view/sobre_view.dart';
 import 'package:device_preview/device_preview.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
 final g = GetIt.instance;
 
-void main() {
+Future<void> main() async {
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  
   g.registerSingleton<CadastroController>(CadastroController());
   g.registerSingleton<LoginController>(LoginController());          //Registrando Controllers
   g.registerSingleton<NotasController>(NotasController());
