@@ -65,14 +65,7 @@ class _LoginViewState extends State<LoginView> {
                 ElevatedButton(
                   onPressed: () {
                     if (controller.validateField()) {
-                      if (controller.validarLogin(controller.txtLoginEmail.text, controller.txtLoginSenha.text)){
-                        Navigator.pushNamed(context, 'home');
-                      }
-                      else {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('Email ou senha incorretos')),
-                        );
-                      }
+                      controller.login(context, controller.txtLoginEmail.text, controller.txtLoginSenha.text);
                     } else {
                       controller.showAlertDialog(context);
                     }
