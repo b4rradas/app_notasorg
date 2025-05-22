@@ -1,4 +1,5 @@
 import 'package:app_notasorg/controller/cadastro_controller.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
@@ -47,6 +48,16 @@ class EsqueciSenhaView extends StatelessWidget {
     }
   }
 
+  void esqueceuSenha(context, String email) {
+    if (email.isNotEmpty){
+      FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+      sucesso(context, 'Email enviado com sucesso');
+    } else {
+      erro(context, 'Iforme o email para recuperar a senha');
+    }
+
+    Navigator.pop(context);
+  }
   
 
   @override
@@ -70,7 +81,7 @@ class EsqueciSenhaView extends StatelessWidget {
             ),
             SizedBox(height: 20),
             ElevatedButton(
-              onPressed: () => _verificarEmail(context), 
+              onPressed: () => esqueceuSenha(context, txtEmail.text), 
               child: Text('Recuperar Senha')
             )
           ],
