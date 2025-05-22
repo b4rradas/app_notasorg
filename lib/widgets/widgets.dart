@@ -1,3 +1,5 @@
+import 'package:app_notasorg/controller/login_controller.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class SideBar extends StatelessWidget {   //Criando Drawer - SideBar
@@ -26,6 +28,26 @@ class SideBar extends StatelessWidget {   //Criando Drawer - SideBar
   Widget buildMenuItens(BuildContext context) => Wrap(    //Itens da SideBar
     runSpacing: 15,
     children: [
+      ListTile(
+        leading: Icon(Icons.person, size: 30,),
+        title:FutureBuilder<String>(
+          future: LoginController().usuarioLogado(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Text('Carregando..');
+            } else if (snapshot.hasError) {
+              return Text('Erro ao carregar');
+            } else if (snapshot.hasData) {
+              return Text(snapshot.data.toString(), style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),);
+            } else {
+              return Text('Usuario não encontrado');
+            }
+          },
+        )
+      ),
+
+      const Divider(color: Colors.black38,),
+
       ListTile(
         leading: Icon(Icons.home_outlined, size: 30,),
         title: Text('Geral', style: TextStyle(fontSize: 22),),
@@ -69,7 +91,7 @@ class SideBar extends StatelessWidget {   //Criando Drawer - SideBar
       const Divider(color: Colors.black38,),
 
       ListTile(
-        leading: const Icon(Icons.person, size: 30,),
+        leading: const Icon(Icons.person_pin, size: 30,),
         title: const Text('Sobre', style: TextStyle(fontSize: 22),),
         onTap: () {
           Navigator.pop(context);
@@ -82,6 +104,7 @@ class SideBar extends StatelessWidget {   //Criando Drawer - SideBar
         leading: Icon(Icons.exit_to_app, size: 30,),
         title: Text('Sair', style: TextStyle(fontSize: 22),),
         onTap: () {
+          FirebaseAuth.instance.signOut();
           Navigator.pop(context);
           Navigator.pushNamedAndRemoveUntil(context, 'login', (route) => false);
         },

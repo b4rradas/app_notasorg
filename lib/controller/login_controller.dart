@@ -1,4 +1,5 @@
 import 'package:app_notasorg/controller/cadastro_controller.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
@@ -30,6 +31,26 @@ class LoginController {
         erro(context, e.code.toString());
     }
   });
+}
+
+String? idUsuario() {
+    final user = FirebaseAuth.instance.currentUser;
+    return user?.uid;
+  }
+
+Future<String> usuarioLogado() async {
+  var usuario = '';
+
+  await FirebaseFirestore.instance
+      .collection('usuarios')
+      .where('uid', isEqualTo: idUsuario())
+      .get()
+      .then(
+        (resultado) {
+          usuario = resultado.docs[0].data()['nome'] ?? '';
+        },
+      );
+    return usuario;
 }
 
   bool validateField(){     //Validar campo vazio

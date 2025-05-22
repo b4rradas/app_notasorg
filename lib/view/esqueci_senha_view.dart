@@ -9,45 +9,6 @@ class EsqueciSenhaView extends StatelessWidget {
 
   EsqueciSenhaView({super.key});
 
-  void _verificarEmail(BuildContext context){
-    String emailInformado = txtEmail.text.trim().toLowerCase();
-
-    if (cadastroController.newUsuario == null || cadastroController.newUsuario!.email.trim().toLowerCase() != emailInformado){
-      showDialog(
-        context: context, 
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text('Email não encontrado'),
-            content: Text('Não existe uma conta cadastrada com esse Email'),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.of(context).pop(), 
-                child: Text('Ok')
-              )
-            ],
-          );
-        }
-      );
-    } else {
-      String senha = cadastroController.newUsuario!.senha;
-      showDialog(
-        context: context, 
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text('Senha Recuperada'),
-            content: Text('Sua senha é: $senha'),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.of(context).pop(), 
-                child: Text('Ok'),
-              )
-            ],
-          );
-        }
-      );
-    }
-  }
-
   void esqueceuSenha(context, String email) {
     if (email.isNotEmpty){
       FirebaseAuth.instance.sendPasswordResetEmail(email: email);
