@@ -1,4 +1,6 @@
 import 'package:app_notasorg/model/usuario_model.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class CadastroController {
@@ -74,4 +76,55 @@ class CadastroController {
         numero: txtCadastroNumero.text
       );
   }
+
+  void criarConta(context, nome, email, senha, numero){
+    FirebaseAuth.instance
+        .createUserWithEmailAndPassword(email: email, password: senha)
+        .then((res) {
+      FirebaseFirestore.instance.collection('usuarios').add({
+        "uid": res.user!.uid.toString(),
+        "nome": nome,
+        "numero": numero,
+      });
+      sucesso(context, 'Usuario cadastrado com sucesso');
+      Navigator.pushNamed(context, 'home');
+    }).catchError((e) {
+      switch (e.code) {
+        case 'email-already-in-use':
+          erro(context, 'Email ja foi cadastrado'); 
+          break;
+        case 'invalid-email':
+          erro(context, 'Email inválido');
+          break;
+        default:
+          erro(context, e.code.toString());
+      }
+    });
+  }
+}
+
+void erro(context, String msg) {
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      backgroundColor: Colors.red.shade900,
+      content: Text(
+        msg,
+        style: const TextStyle(color: Colors.white),
+      ),
+      duration: const Duration(seconds: 3),
+    ),
+  );
+}
+
+void sucesso(context, String msg) {
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      backgroundColor: Colors.green.shade900,
+      content: Text(
+        msg,
+        style: const TextStyle(color: Colors.white),
+      ),
+      duration: const Duration(seconds: 3),
+    ),
+  );
 }
