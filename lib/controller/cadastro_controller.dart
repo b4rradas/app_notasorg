@@ -67,16 +67,6 @@ class CadastroController {
     );
   }
 
-    void cadastrar(){
-    // ignore: unused_local_variable
-      newUsuario = Usuario(
-        nome: txtCadastroNome.text, 
-        senha: txtCadastroSenha.text, 
-        email: txtCadastroEmail.text, 
-        numero: txtCadastroNumero.text
-      );
-  }
-
   void criarConta(context, nome, email, senha, numero){
     FirebaseAuth.instance
         .createUserWithEmailAndPassword(email: email, password: senha)

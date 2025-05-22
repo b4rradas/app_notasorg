@@ -61,8 +61,12 @@ class _CadastroViewState extends State<CadastroView> {
                 onPressed: ()  {
                   if (controller.validateFields()) {
                     if (controller.checkPasswords()) {
-                      controller.cadastrar();
-                      Navigator.pushNamed(context, 'home');
+                      controller.criarConta(context, 
+                        controller.txtCadastroNome.text, 
+                        controller.txtCadastroEmail.text, 
+                        controller.txtCadastroSenha.text, 
+                        controller.txtCadastroNumero.text
+                      );
                     }
                     else {
                       controller.showAlertDialogPassword(context);
