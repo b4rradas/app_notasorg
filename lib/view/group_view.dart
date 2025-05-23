@@ -11,9 +11,7 @@ class GroupView extends StatelessWidget {
   GroupView({super.key, required this.groupName, required this.groupColor});
 
   final NotasController controller = GetIt.I<NotasController>();
-  
 
-  //Cor prioridade da nota
   Color _getPriorityColor(String priorityTag) {
     switch (priorityTag) {
       case 'Alta Prioridade':
@@ -29,8 +27,6 @@ class GroupView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final tasks = controller.filterByGroup(groupName);
-
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -52,13 +48,33 @@ class GroupView extends StatelessWidget {
               ),
             ),
           ),
-          ListView.builder(
-            itemCount: tasks.length,
-            itemBuilder: (context, index) {
-              final task = tasks[index];
-              return NotaTile(
-                task: task,
-                priorityColor: _getPriorityColor(task.priorityTag),
+          StreamBuilder<List<Nota>>(
+            stream: controller.getNotasDoUsuario(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(child: CircularProgressIndicator());
+              }
+              if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                return const Center(child: Text('Nenhuma nota encontrada.'));
+              }
+
+              final tasks = snapshot.data!
+                  .where((nota) => nota.group == groupName)
+                  .toList();
+
+              if (tasks.isEmpty) {
+                return const Center(child: Text('Nenhuma nota nesse grupo.'));
+              }
+
+              return ListView.builder(
+                itemCount: tasks.length,
+                itemBuilder: (context, index) {
+                  final task = tasks[index];
+                  return NotaTile(
+                    task: task,
+                    priorityColor: _getPriorityColor(task.priorityTag),
+                  );
+                },
               );
             },
           ),
@@ -91,6 +107,7 @@ class GroupView extends StatelessWidget {
     );
   }
 }
+
 
 class NotaTile extends StatefulWidget {
   final Nota task;

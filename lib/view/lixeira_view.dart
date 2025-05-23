@@ -13,7 +13,7 @@ class LixeiraView extends StatelessWidget {
     final deletedTasks = controller.deletedtask; 
 
     void removeTask(Nota task) {
-      controller.removeTask(task);
+      controller.deleteTask(task);
       deletedTasks.remove(task);
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Tarefa removida permanentemente')),

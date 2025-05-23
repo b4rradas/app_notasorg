@@ -1,4 +1,3 @@
-import 'package:app_notasorg/model/usuario_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -9,8 +8,6 @@ class CadastroController {
   final TextEditingController txtCadastroNumero = TextEditingController();
   final TextEditingController txtCadastroSenha = TextEditingController();
   final TextEditingController txtCadastroConfSenha = TextEditingController();
-
-  Usuario? newUsuario;
 
   bool validateFields() {   //Validar para campo vazio
     if (txtCadastroEmail.text.isEmpty || txtCadastroNome.text.isEmpty || txtCadastroNumero.text.isEmpty 
