@@ -87,31 +87,35 @@ Stream<List<Nota>> getNotasDoUsuario() {
 }
 
 
-
+  //Arquivar nota
   Future<void> archiveTask(Nota task) async {
     await _updateStatus(task, 'archived');
     _tasks.remove(task);
     _archivedtask.add(task);
   }
 
+  //Concluir nota
   Future<void> concludeTask(Nota task) async {
     await _updateStatus(task, 'concluded');
     _tasks.remove(task);
     _concludedtask.add(task);
   }
 
+  //restaurar nota arquivada
   Future<void> restoreTask(Nota task) async {
     await _updateStatus(task, 'active');
     _archivedtask.remove(task);
     _tasks.add(task);
   }
 
+  //mover nota arquivada para lixeira
   Future<void> moveToTrashFromArchived(Nota task) async {
     await _updateStatus(task, 'deleted');
     _archivedtask.remove(task);
     _deletedtask.add(task);
   }
 
+  //mover nota para lixeira
   Future<void> deleteTask(Nota task) async {
     await _updateStatus(task, 'deleted');
     _tasks.remove(task);
@@ -179,6 +183,7 @@ Stream<List<Nota>> getNotasDoUsuario() {
     return _tasks.where((task) => task.group == group).toList();
   }
 
+  //deletar nota da lixeira permanentemente
   Future<void> deletePermanently(Nota task) async {
   final uid = _auth.currentUser!.uid;
   await _firestore
@@ -189,7 +194,8 @@ Stream<List<Nota>> getNotasDoUsuario() {
       .delete();
 }
 
-Future<void> emptyTrash() async {
+  //esvaziar lixeira, excluindo notas permanentemente
+  Future<void> emptyTrash() async {
   final uid = _auth.currentUser!.uid;
   final snapshot = await _firestore
       .collection('usuarios')
