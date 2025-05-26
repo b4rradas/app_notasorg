@@ -174,4 +174,30 @@ Stream<List<Nota>> getNotasDoUsuario() {
   List<Nota> filterByGroup(String group) {
     return _tasks.where((task) => task.group == group).toList();
   }
+
+  Future<void> deletePermanently(Nota nota) async {
+  final uid = _auth.currentUser!.uid;
+  await _firestore
+      .collection('usuarios')
+      .doc(uid)
+      .collection('notas')
+      .doc(nota.id)
+      .delete();
+}
+
+Future<void> emptyTrash() async {
+  final uid = _auth.currentUser!.uid;
+  final snapshot = await _firestore
+      .collection('usuarios')
+      .doc(uid)
+      .collection('notas')
+      .where('status', isEqualTo: 'deleted')
+      .get();
+
+  for (var doc in snapshot.docs) {
+    await doc.reference.delete();
+  }
+}
+
+
 }

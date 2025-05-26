@@ -10,24 +10,6 @@ class LixeiraView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final NotasController controller = GetIt.I<NotasController>();
-    final deletedTasks = controller.deletedtask; 
-
-    void removeTask(Nota task) {
-      controller.deleteTask(task);
-      deletedTasks.remove(task);
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Tarefa removida permanentemente')),
-      );
-      Navigator.of(context).pushReplacementNamed('lixeira');
-    }
-
-    void emptyTrash() {
-      controller.deletedtask.clear();
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Lixeira esvaziada')),
-      );
-      Navigator.of(context).pushReplacementNamed('lixeira');
-    }
 
     return Scaffold(
       drawer: const SideBar(),
@@ -36,12 +18,29 @@ class LixeiraView extends StatelessWidget {
         backgroundColor: const Color.fromARGB(255, 74, 177, 233),
         actions: [
           IconButton(
-            onPressed: () {
-              if (deletedTasks.isNotEmpty) {
-                emptyTrash();
-              } else {
+            onPressed: () async {
+              final confirm = await showDialog<bool>(
+                context: context,
+                builder: (context) => AlertDialog(
+                  title: const Text('Esvaziar lixeira'),
+                  content: const Text('Tem certeza que deseja excluir todas as notas da lixeira?'),
+                  actions: [
+                    TextButton(
+                      onPressed: () => Navigator.pop(context, false),
+                      child: const Text('Cancelar'),
+                    ),
+                    TextButton(
+                      onPressed: () => Navigator.pop(context, true),
+                      child: const Text('Confirmar'),
+                    ),
+                  ],
+                ),
+              );
+
+              if (confirm == true) {
+                controller.emptyTrash();
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Lixeira já está vazia')),
+                  const SnackBar(content: Text('Lixeira esvaziada')),
                 );
               }
             },
@@ -60,48 +59,75 @@ class LixeiraView extends StatelessWidget {
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: deletedTasks.isEmpty
-                ? const Center(child: Text('Lixeira Vazia', 
-                style: TextStyle(fontWeight: FontWeight.bold)))
-                : ListView.builder(
-                    itemCount: deletedTasks.length,
-                    itemBuilder: (context, index) {
-                      final task = deletedTasks[index];
-                      return Container(
-                        decoration: BoxDecoration(
-                          color: const Color.fromARGB(255, 233, 229, 226),
-                          borderRadius: BorderRadius.circular(8),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.shade400,
-                              blurRadius: 4,
-                              offset: const Offset(2, 2),
-                            ),
-                          ],
-                        ),
-                        margin: const EdgeInsets.symmetric(vertical: 5),
-                        child: ListTile(
-                          title: Text(task.name),
-                          subtitle: Text(task.description),
-                          trailing: PopupMenuButton<String>(
-                            onSelected: (value) {
-                              if (value == 'excluir') {
-                                removeTask(task);
-                              }
-                            },
-                            itemBuilder: (context) => const [
-                              PopupMenuItem(
-                                value: 'excluir',
-                                child: Text('Excluir Permanentemente'),
-                              ),
-                            ],
-                          ),
-                        ),
-                      );
-                    },
+          StreamBuilder<List<Nota>>(
+            stream: controller.getNotasDoUsuario(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(child: CircularProgressIndicator());
+              }
+              if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                return const Center(
+                  child: Text(
+                    'Lixeira Vazia',
+                    style: TextStyle(fontWeight: FontWeight.bold),
                   ),
+                );
+              }
+
+              final deletedTasks = snapshot.data!
+                  .where((nota) => nota.status == 'deleted')
+                  .toList();
+
+              if (deletedTasks.isEmpty) {
+                return const Center(
+                  child: Text(
+                    'Lixeira Vazia',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                );
+              }
+
+              return ListView.builder(
+                itemCount: deletedTasks.length,
+                itemBuilder: (context, index) {
+                  final task = deletedTasks[index];
+                  return Container(
+                    decoration: BoxDecoration(
+                      color: const Color.fromARGB(255, 233, 229, 226),
+                      borderRadius: BorderRadius.circular(8),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.shade400,
+                          blurRadius: 4,
+                          offset: const Offset(2, 2),
+                        ),
+                      ],
+                    ),
+                    margin: const EdgeInsets.symmetric(vertical: 5),
+                    child: ListTile(
+                      title: Text(task.name),
+                      subtitle: Text(task.description),
+                      trailing: PopupMenuButton<String>(
+                        onSelected: (value) {
+                          if (value == 'excluir') {
+                            controller.deletePermanently(task);
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(content: Text('Nota excluída permanentemente')),
+                            );
+                          }
+                        },
+                        itemBuilder: (context) => const [
+                          PopupMenuItem(
+                            value: 'excluir',
+                            child: Text('Excluir Permanentemente'),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              );
+            },
           ),
         ],
       ),
