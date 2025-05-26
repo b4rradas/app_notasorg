@@ -33,9 +33,10 @@ class LoginController {
     });
   }
 
+  //Verificar usuario logado
   Future<String> usuarioLogado() async {
     final user = FirebaseAuth.instance.currentUser;
-    if (user == null) {
+    if (user == null) { //checa se existe um usuario logado
       return 'Usuário não logado';
     }
 
@@ -47,7 +48,7 @@ class LoginController {
 
       if (documentSnapshot.exists) {
         final userData = documentSnapshot.data();
-        if (userData != null && userData.containsKey('nome')) {
+        if (userData != null && userData.containsKey('nome')) { //verificar se ha um nome do usuriaio e se ele nao esta nulo
           return userData['nome'] as String;
         } else {
           return 'Nome não disponível';
