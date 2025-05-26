@@ -42,23 +42,20 @@ class LoginController {
     try {
       final DocumentSnapshot<Map<String, dynamic>> documentSnapshot =
           await FirebaseFirestore.instance.collection('usuarios')
-              .doc(user.uid) // Acessa o documento diretamente pelo UID
+              .doc(user.uid)
               .get();
 
       if (documentSnapshot.exists) {
         final userData = documentSnapshot.data();
-        // Verifica se o mapa não é nulo e contém a chave 'nome'
         if (userData != null && userData.containsKey('nome')) {
           return userData['nome'] as String;
         } else {
-          return 'Nome não disponível'; // Documento existe, mas 'nome' ausente/nulo
+          return 'Nome não disponível';
         }
       } else {
-        return 'Usuário não encontrado no Firestore'; // Documento não existe para o UID
+        return 'Usuário não encontrado no Firestore';
       }
     } catch (e) {
-      // Em caso de qualquer erro na comunicação com o Firestore, retorna um erro genérico.
-      // Detalhes do erro seriam logados apenas em um ambiente de depuração.
       return 'Erro ao carregar nome';
     }
   }
