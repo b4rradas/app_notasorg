@@ -68,7 +68,7 @@ class CadastroController {
     FirebaseAuth.instance
         .createUserWithEmailAndPassword(email: email, password: senha)
         .then((res) {
-      FirebaseFirestore.instance.collection('usuarios').add({
+      FirebaseFirestore.instance.collection('usuarios').doc(res.user!.uid).set({
         "uid": res.user!.uid.toString(),
         "nome": nome,
         "email": email,

@@ -14,53 +14,63 @@ class LoginController {
     FirebaseAuth.instance
         .signInWithEmailAndPassword(email: email, password: senha)
         .then((res) {
-      sucesso(context, 'Usuario Autenticado com sucesso');
+      sucesso(context, 'Usuário autenticado com sucesso');
       Navigator.pushReplacementNamed(context, 'home');
-      }).catchError((e) {
-    switch (e.code) {
-      case 'invalid-email':
-        erro(context, 'O formato do email é inválido.');  
-        break;
-      case 'user-not-found':
-        erro(context, 'Usuário não encontrado.'); 
-        break;
-      case 'wrong-password':
-        erro(context, 'Senha incorreta.');        
-        break;
-      default:
-        erro(context, e.code.toString());
-    }
-  });
-}
-
-String? idUsuario() {
-    final user = FirebaseAuth.instance.currentUser;
-    return user?.uid;
+    }).catchError((e) {
+      switch (e.code) {
+        case 'invalid-email':
+          erro(context, 'O formato do email é inválido.');
+          break;
+        case 'user-not-found':
+          erro(context, 'Usuário não encontrado.');
+          break;
+        case 'wrong-password':
+          erro(context, 'Senha incorreta.');
+          break;
+        default:
+          erro(context, e.code.toString());
+      }
+    });
   }
 
-Future<String> usuarioLogado() async {
-  var usuario = '';
+  Future<String> usuarioLogado() async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user == null) {
+      return 'Usuário não logado';
+    }
 
-  await FirebaseFirestore.instance
-      .collection('usuarios')
-      .where('uid', isEqualTo: idUsuario())
-      .get()
-      .then(
-        (resultado) {
-          usuario = resultado.docs[0].data()['nome'] ?? '';
-        },
-      );
-    return usuario;
-}
+    try {
+      final DocumentSnapshot<Map<String, dynamic>> documentSnapshot =
+          await FirebaseFirestore.instance.collection('usuarios')
+              .doc(user.uid) // Acessa o documento diretamente pelo UID
+              .get();
 
-  bool validateField(){     //Validar campo vazio
+      if (documentSnapshot.exists) {
+        final userData = documentSnapshot.data();
+        // Verifica se o mapa não é nulo e contém a chave 'nome'
+        if (userData != null && userData.containsKey('nome')) {
+          return userData['nome'] as String;
+        } else {
+          return 'Nome não disponível'; // Documento existe, mas 'nome' ausente/nulo
+        }
+      } else {
+        return 'Usuário não encontrado no Firestore'; // Documento não existe para o UID
+      }
+    } catch (e) {
+      // Em caso de qualquer erro na comunicação com o Firestore, retorna um erro genérico.
+      // Detalhes do erro seriam logados apenas em um ambiente de depuração.
+      return 'Erro ao carregar nome';
+    }
+  }
+
+  bool validateField(){
     if (txtLoginEmail.text.isEmpty || txtLoginSenha.text.isEmpty) {
       return false;
     }
     return true;
   }
 
-  void showAlertDialog(BuildContext context) {    //Alerta para caso algum campo vazio
+  void showAlertDialog(BuildContext context) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
