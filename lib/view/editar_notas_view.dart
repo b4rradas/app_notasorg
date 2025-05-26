@@ -29,21 +29,25 @@ class _EditarNotaViewState extends State<EditarNotaView> {
     _group = widget.nota.group;
   }
 
-  void _saveEdits() {
-    if (_formKey.currentState!.validate()) {
-      final editedNota = Nota(
-        name: _nameController.text,
-        description: _descriptionController.text,
-        priorityTag: _priorityTag,
-        group: _group,
-      );
-      final index = controller.tasks.indexOf(widget.nota);
-      if (index != -1) {
-        controller.editTask(index, editedNota);
-      }
+  void _saveEdits() async {
+  if (_formKey.currentState!.validate()) {
+    final editedNota = Nota(
+      id: widget.nota.id, // 🔥 ESSENCIAL!! Manter o mesmo ID
+      name: _nameController.text,
+      description: _descriptionController.text,
+      priorityTag: _priorityTag,
+      group: _group,
+      status: widget.nota.status, // Mantém o mesmo status atual
+    );
+
+    await controller.editTask(editedNota);
+
+    if (mounted) {
       Navigator.pop(context);
     }
   }
+}
+
 
   @override
   Widget build(BuildContext context) {

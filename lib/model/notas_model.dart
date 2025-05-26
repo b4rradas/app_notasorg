@@ -1,15 +1,28 @@
 class Nota {
-  String id;
-  String name;
-  String priorityTag; // "Alta Prioridade", "Média Prioridade", "Baixa Prioridade"
-  String group; // "Trabalho", "Pessoal", "Estudos"
-  String description;
+  String? id;
+  final String name;
+  final String description;
+  final String priorityTag;
+  final String group;
+  final String status;
 
   Nota({
-    this.id = '',
+    this.id,
     required this.name,
+    required this.description,
     required this.priorityTag,
     required this.group,
-    required this.description,
+    this.status = 'active',
   });
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'name': name,
+      'description': description,
+      'priorityTag': priorityTag,
+      'group': group,
+      'status': status,
+    };
+  }
 }

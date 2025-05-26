@@ -20,7 +20,7 @@ class NotasController {
     return _tasks[index];
   }
 
-  /// 🔥 Adiciona uma nota no Firestore e local
+  /// adiciona uma nota no Firestore e local
   Future<void> addTask(Nota task) async {
     final uid = _auth.currentUser!.uid;
 
@@ -33,7 +33,7 @@ class NotasController {
       'description': task.description,
       'priorityTag': task.priorityTag,
       'group': task.group,
-      'status': 'active',
+      'status': task.status,
       'createdAt': Timestamp.now(),
     });
 
@@ -41,27 +41,27 @@ class NotasController {
     _tasks.add(task);
   }
 
-  /// 🔥 Edita uma nota no Firestore e local
-  Future<void> editTask(int index, Nota updatedTask) async {
-    final uid = _auth.currentUser!.uid;
-    final docId = updatedTask.id;
+  /// editar nota no Firestore e local
+  Future<void> editTask(Nota updatedTask) async {
+  final uid = _auth.currentUser!.uid;
+  final docId = updatedTask.id;
 
-    await _firestore
-        .collection('usuarios')
-        .doc(uid)
-        .collection('notas')
-        .doc(docId)
-        .update({
-      'name': updatedTask.name,
-      'description': updatedTask.description,
-      'priorityTag': updatedTask.priorityTag,
-      'group': updatedTask.group,
-    });
+  await _firestore
+      .collection('usuarios')
+      .doc(uid)
+      .collection('notas')
+      .doc(docId)
+      .update({
+    'name': updatedTask.name,
+    'description': updatedTask.description,
+    'priorityTag': updatedTask.priorityTag,
+    'group': updatedTask.group,
+    'status': updatedTask.status, // 🔥 Garante que o status não muda
+  });
+}
 
-    _tasks[index] = updatedTask;
-  }
 
-  /// 🔥 Stream de notas do usuário (todas as notas, independente do status)
+  /// stream de notas do usuário (todas as notas, independente do status)
 Stream<List<Nota>> getNotasDoUsuario() {
   final uid = _auth.currentUser!.uid;
 
@@ -80,27 +80,26 @@ Stream<List<Nota>> getNotasDoUsuario() {
             description: data['description'] ?? '',
             priorityTag: data['priorityTag'] ?? '',
             group: data['group'] ?? '',
+            status: data['status'] ?? 'active', // 🔥 Pega o status do Firestore
           );
         }).toList();
       });
 }
 
 
-  /// 🔥 Arquivar
+
   Future<void> archiveTask(Nota task) async {
     await _updateStatus(task, 'archived');
     _tasks.remove(task);
     _archivedtask.add(task);
   }
 
-  /// 🔥 Concluir
   Future<void> concludeTask(Nota task) async {
     await _updateStatus(task, 'concluded');
     _tasks.remove(task);
     _concludedtask.add(task);
   }
 
-  /// 🔥 Restaurar
   Future<void> restoreTask(Nota task) async {
     await _updateStatus(task, 'active');
     _archivedtask.remove(task);
@@ -109,14 +108,13 @@ Stream<List<Nota>> getNotasDoUsuario() {
     _tasks.add(task);
   }
 
-  /// 🔥 Mover pra lixeira
   Future<void> deleteTask(Nota task) async {
     await _updateStatus(task, 'deleted');
     _tasks.remove(task);
     _deletedtask.add(task);
   }
 
-  /// 🔥 Atualiza status da nota
+  /// atualiza status da nota
   Future<void> _updateStatus(Nota task, String status) async {
     final uid = _auth.currentUser!.uid;
     final docId = task.id;
@@ -129,7 +127,7 @@ Stream<List<Nota>> getNotasDoUsuario() {
         .update({'status': status});
   }
 
-  /// 🔥 Carregar as notas do Firestore
+  /// carregar as notas do Firestore
   Future<void> loadTasks() async {
     final uid = _auth.currentUser!.uid;
 
@@ -172,7 +170,7 @@ Stream<List<Nota>> getNotasDoUsuario() {
     }
   }
 
-  /// 🔍 Filtrar por grupo
+  /// filtrar por grupo
   List<Nota> filterByGroup(String group) {
     return _tasks.where((task) => task.group == group).toList();
   }
