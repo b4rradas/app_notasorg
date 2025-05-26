@@ -1,4 +1,5 @@
 import 'package:app_notasorg/controller/notas_controller.dart';
+import 'package:app_notasorg/model/notas_model.dart';
 import 'package:app_notasorg/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
@@ -9,14 +10,6 @@ class ArquivadosView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final NotasController controller = GetIt.I<NotasController>();
-    final archivedTask = controller.archivedtask; 
-
-    void movetoTrashfromArchived(task){
-      controller.deleteTask(task);
-      archivedTask.remove(task);
-      Navigator.pushNamedAndRemoveUntil(context, 'lixeira', (route) => false);
-
-    }
 
     return Scaffold(
       drawer: const SideBar(),
@@ -34,75 +27,103 @@ class ArquivadosView extends StatelessWidget {
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: archivedTask.isEmpty
-                ? const Center(child: Text('Nenhuma nota arquivada', 
-                style: TextStyle(fontWeight: FontWeight.bold)))
-                : ListView.builder(
-                    itemCount: archivedTask.length,
-                    itemBuilder: (context, index) {
-                      final task = archivedTask[index];
-                      return Container(
-                        decoration: BoxDecoration(
-                          color: const Color.fromARGB(255, 233, 229, 226),
-                          borderRadius: BorderRadius.circular(8),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.shade400,
-                              blurRadius: 4,
-                              offset: const Offset(2, 2),
+          StreamBuilder<List<Nota>>(
+            stream: controller.getNotasDoUsuario(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(child: CircularProgressIndicator());
+              }
+
+              if (snapshot.hasError) {
+                return const Center(child: Text('Erro ao carregar notas'));
+              }
+
+              if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                return const Center(
+                  child: Text(
+                    'Nenhuma Nota Arquivada',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                );
+              }
+
+              final archivedTasks = snapshot.data!
+                .where((nota) => nota.status == 'archived')
+                .toList();
+
+              if (archivedTasks.isEmpty) {
+                return const Center(
+                  child: Text(
+                    'Nenhuma nota Arquivada',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                );
+              }
+
+              return ListView.builder(
+                itemCount: archivedTasks.length,
+                itemBuilder: (context, index) {
+                  final task = archivedTasks[index];
+                  return Container(
+                      decoration: BoxDecoration(
+                        color: const Color.fromARGB(255, 233, 229, 226),
+                        borderRadius: BorderRadius.circular(8),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.shade400,
+                            blurRadius: 4,
+                            offset: const Offset(2, 2),
+                          ),
+                        ],
+                      ),
+                      margin: const EdgeInsets.symmetric(vertical: 5),
+                      child: ListTile(
+                        title: Text(task.name),
+                        subtitle: Text(task.description),
+                        trailing: PopupMenuButton<String>(
+                          onSelected: (value) async {
+                            if (value == 'lixeira') {
+                              controller.moveToTrashFromArchived(task);
+                              Navigator.pushNamedAndRemoveUntil(
+                                  context, 'lixeira', (route) => false);
+                            } else if (value == 'restaurar') {
+                              controller.restoreTask(task);
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text('Nota restaurada'),
+                                ),
+                              );
+                            }
+                          },
+                          itemBuilder: (context) => const [
+                            PopupMenuItem(
+                              value: 'lixeira',
+                              child: Text('Excluir'),
+                            ),
+                            PopupMenuItem(
+                              value: 'restaurar',
+                              child: Text('Restaurar'),
                             ),
                           ],
                         ),
-                        margin: const EdgeInsets.symmetric(vertical: 5),
-                        child: ListTile(
-                          title: Text(task.name),
-                          subtitle: Text(task.description),
-                          trailing: PopupMenuButton<String>(
-                            onSelected: (value) {
-                              if (value == 'lixeira'){
-                                movetoTrashfromArchived(task);
-                              }
-                              else if (value == 'restaurar'){
-                                controller.restoreTask(task);
-                                Navigator.pop(context);
-                              }
-                            },
-                            itemBuilder: (context) => const [
-                              PopupMenuItem(value: 'lixeira', child: Text('Excluir')),
-                              PopupMenuItem(value: 'restaurar', child: Text('Restaurar')),
-                            ],
-                          ),
-                        ),
-                      );                      
-                    },
-                  ),
+                      ),
+                  );
+                },
+              );        
+            },
           ),
         ],
       ),
+
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.of(context).pushNamed('criar_nota');
         },
         backgroundColor: const Color.fromARGB(76, 0, 0, 0),
-        child: PopupMenuButton<String>(
-          onSelected: (value) {
-            if (value == 'nova_nota') {
-              Navigator.of(context).pushNamed('criar_nota');
-            }
-          },
-          itemBuilder: (context) => const [
-            PopupMenuItem(
-              value: 'nova_nota',
-              child: Text('Nova Nota'),
-            ),
-          ],
-          child: const Icon(
-            Icons.add,
-            size: 50,
-            color: Color.fromARGB(255, 41, 41, 41),
-          ),
+        child: const Icon(
+          Icons.add,
+          size: 50,
+          color: Color.fromARGB(255, 41, 41, 41),
         ),
       ),
     );

@@ -56,7 +56,7 @@ class NotasController {
     'description': updatedTask.description,
     'priorityTag': updatedTask.priorityTag,
     'group': updatedTask.group,
-    'status': updatedTask.status, // 🔥 Garante que o status não muda
+    'status': updatedTask.status,
   });
 }
 
@@ -103,9 +103,13 @@ Stream<List<Nota>> getNotasDoUsuario() {
   Future<void> restoreTask(Nota task) async {
     await _updateStatus(task, 'active');
     _archivedtask.remove(task);
-    _concludedtask.remove(task);
-    _deletedtask.remove(task);
     _tasks.add(task);
+  }
+
+  Future<void> moveToTrashFromArchived(Nota task) async {
+    await _updateStatus(task, 'deleted');
+    _archivedtask.remove(task);
+    _deletedtask.add(task);
   }
 
   Future<void> deleteTask(Nota task) async {
@@ -175,13 +179,13 @@ Stream<List<Nota>> getNotasDoUsuario() {
     return _tasks.where((task) => task.group == group).toList();
   }
 
-  Future<void> deletePermanently(Nota nota) async {
+  Future<void> deletePermanently(Nota task) async {
   final uid = _auth.currentUser!.uid;
   await _firestore
       .collection('usuarios')
       .doc(uid)
       .collection('notas')
-      .doc(nota.id)
+      .doc(task.id)
       .delete();
 }
 

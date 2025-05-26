@@ -60,6 +60,7 @@ class GroupView extends StatelessWidget {
 
               final tasks = snapshot.data!
                   .where((nota) => nota.group == groupName)
+                  .where((nota) => nota.status == 'active')
                   .toList();
 
               if (tasks.isEmpty) {
