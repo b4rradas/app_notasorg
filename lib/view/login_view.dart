@@ -13,6 +13,9 @@ class _LoginViewState extends State<LoginView> {
   final LoginController controller = GetIt.I<LoginController>();
   final _formKey = GlobalKey<FormState>();
 
+  bool isObscured = true;
+  var icone = Icon(Icons.visibility);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,8 +60,10 @@ class _LoginViewState extends State<LoginView> {
 
                 TextFormField(
                   controller: controller.txtLoginSenha,
-                  decoration: InputDecoration(labelText: 'Senha'),
-                  obscureText: true,
+                  obscureText: isObscured,
+                  decoration: InputDecoration(
+                    labelText: 'Senha',
+                    suffixIcon: IconButton(icon: icone, onPressed: _toggleObscure,)),
                 ),
 
                 SizedBox(height: 20),
@@ -88,5 +93,17 @@ class _LoginViewState extends State<LoginView> {
         ),
       )
     );
+  }
+
+  void _toggleObscure() {
+    isObscured = !isObscured;
+
+    if (isObscured) {
+      icone = Icon(Icons.visibility);
+    } else {
+      icone = Icon(Icons.visibility_off);
+    }
+
+    setState(() {});
   }
 }

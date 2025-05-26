@@ -13,6 +13,12 @@ class _CadastroViewState extends State<CadastroView> {
   final CadastroController controller = GetIt.I<CadastroController>();
   final _formKey = GlobalKey<FormState>();
 
+  bool isObscured = true;
+  bool isObscuredConfirm = true;
+  var icon = Icon(Icons.visibility);
+  var iconConfirm = Icon(Icons.visibility);
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,14 +52,16 @@ class _CadastroViewState extends State<CadastroView> {
 
               TextFormField(
                 controller: controller.txtCadastroSenha,
-                decoration: InputDecoration(labelText: 'Senha'),
-                obscureText: true,
+                obscureText: isObscured,
+                decoration: InputDecoration(labelText: 'Senha',
+                suffixIcon: IconButton(icon: icon, onPressed: _toggleObscure,)),
               ),
 
               TextFormField(
                 controller: controller.txtCadastroConfSenha,
-                decoration: InputDecoration(labelText: 'Confirmar Senha'),
-                obscureText: true,
+                obscureText: isObscuredConfirm,
+                decoration: InputDecoration(labelText: 'Confirmar Senha',
+                suffixIcon: IconButton(icon: iconConfirm, onPressed: _toggleObscureConfirm,)),
               ),
 
               SizedBox(height: 20),
@@ -83,5 +91,29 @@ class _CadastroViewState extends State<CadastroView> {
         ),
       ),
     );
+  }
+
+  void _toggleObscure() {
+    isObscured = !isObscured;
+
+    if (isObscured) {
+      icon = Icon(Icons.visibility);
+    } else {
+      icon = Icon(Icons.visibility_off);
+    }
+
+    setState(() {});
+  }
+
+  void _toggleObscureConfirm() {
+    isObscuredConfirm = !isObscuredConfirm;
+
+    if (isObscuredConfirm) {
+      iconConfirm = Icon(Icons.visibility);
+    } else {
+      iconConfirm = Icon(Icons.visibility_off);
+    }
+
+    setState(() {});
   }
 }
