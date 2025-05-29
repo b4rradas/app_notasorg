@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 class CadastroController {
   final TextEditingController txtCadastroNome = TextEditingController();
+  final TextEditingController txtCadastroSobrenome = TextEditingController();
   final TextEditingController txtCadastroEmail = TextEditingController();
   final TextEditingController txtCadastroNumero = TextEditingController();
   final TextEditingController txtCadastroSenha = TextEditingController();
@@ -23,6 +24,35 @@ class CadastroController {
     }
     return true;
   }
+
+bool SenhaSegura(String senha) {
+  final hasUppercase = senha.contains(RegExp(r'[A-Z]'));
+  final hasLowercase = senha.contains(RegExp(r'[a-z]'));
+  final hasDigit = senha.contains(RegExp(r'[0-9]'));
+  final hasSpecialChar = senha.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>_\-+=]'));
+
+  return hasUppercase && hasLowercase && hasDigit && hasSpecialChar;
+}
+
+void showAlertDialogSenhaInsegura(BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (context) => AlertDialog(
+      title: const Text('Senha Fraca'),
+      content: const Text(
+        'A senha precisa conter:\n• Letras maiúsculas\n• Letras minúsculas\n• Números\n• Caracteres especiais'
+      ),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.pop(context),
+          child: const Text('OK'),
+        ),
+      ],
+    ),
+  );
+}
+
+
 
   void showAlertDialogCad(BuildContext context) {   //Alerta para cas um campo esteja vazio
     showDialog(
@@ -64,13 +94,14 @@ class CadastroController {
     );
   }
 
-  void criarConta(context, nome, email, senha, numero){
+  void criarConta(context, nome, sobrenome, email, senha, numero){
     FirebaseAuth.instance
         .createUserWithEmailAndPassword(email: email, password: senha)
         .then((res) {
       FirebaseFirestore.instance.collection('usuarios').doc(res.user!.uid).set({
         "uid": res.user!.uid.toString(),
         "nome": nome,
+        "sobrenome": sobrenome,
         "email": email,
         "numero": numero,
       });

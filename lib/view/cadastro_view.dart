@@ -39,6 +39,11 @@ class _CadastroViewState extends State<CadastroView> {
               ),
 
               TextFormField(
+                controller: controller.txtCadastroSobrenome,
+                decoration: InputDecoration(labelText: 'Sobrenome (Opcional)'),
+              ),
+
+              TextFormField(
                 controller: controller.txtCadastroEmail,
                 decoration: InputDecoration(labelText: 'Email'),
                 keyboardType: TextInputType.emailAddress,
@@ -66,21 +71,26 @@ class _CadastroViewState extends State<CadastroView> {
 
               SizedBox(height: 20),
               ElevatedButton(
-                onPressed: ()  {
+                onPressed: () {
                   if (controller.validateFields()) {
-                    if (controller.checkPasswords()) {
-                      controller.criarConta(context, 
-                        controller.txtCadastroNome.text, 
-                        controller.txtCadastroEmail.text, 
-                        controller.txtCadastroSenha.text, 
-                        controller.txtCadastroNumero.text
-                      );
+                    if (!controller.SenhaSegura(controller.txtCadastroSenha.text)) {
+                      controller.showAlertDialogSenhaInsegura(context);
+                      return;
                     }
-                    else {
+
+                    if (controller.checkPasswords()) {
+                      controller.criarConta(
+                        context,
+                        controller.txtCadastroNome.text,
+                        controller.txtCadastroSobrenome.text,
+                        controller.txtCadastroEmail.text,
+                        controller.txtCadastroSenha.text,
+                        controller.txtCadastroNumero.text,
+                      );
+                    } else {
                       controller.showAlertDialogPassword(context);
                     }
-                  }
-                  else {
+                  } else {
                     controller.showAlertDialogCad(context);
                   }
                 },
