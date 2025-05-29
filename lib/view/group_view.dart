@@ -12,18 +12,7 @@ class GroupView extends StatelessWidget {
 
   final NotasController controller = GetIt.I<NotasController>();
 
-  Color _getPriorityColor(String priorityTag) {
-    switch (priorityTag) {
-      case 'Alta Prioridade':
-        return Colors.red;
-      case 'Média Prioridade':
-        return Colors.yellow;
-      case 'Baixa Prioridade':
-        return Colors.green;
-      default:
-        return Colors.grey;
-    }
-  }
+  
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +62,7 @@ class GroupView extends StatelessWidget {
                   final task = tasks[index];
                   return NotaTile(
                     task: task,
-                    priorityColor: _getPriorityColor(task.priorityTag),
+                    priorityColor: controller.getPriorityColor(task.priorityTag),
                   );
                 },
               );

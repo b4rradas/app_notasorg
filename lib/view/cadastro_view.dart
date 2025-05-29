@@ -73,7 +73,7 @@ class _CadastroViewState extends State<CadastroView> {
               ElevatedButton(
                 onPressed: () {
                   if (controller.validateFields()) {
-                    if (!controller.SenhaSegura(controller.txtCadastroSenha.text)) {
+                    if (!controller.senhaSegura(controller.txtCadastroSenha.text)) {
                       controller.showAlertDialogSenhaInsegura(context);
                       return;
                     }

@@ -11,6 +11,7 @@ import 'package:app_notasorg/view/group_view.dart';
 import 'package:app_notasorg/view/home_view.dart';
 import 'package:app_notasorg/view/lixeira_view.dart';
 import 'package:app_notasorg/view/login_view.dart';
+import 'package:app_notasorg/view/pesquisa_view.dart';
 import 'package:app_notasorg/view/sobre_view.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -58,6 +59,7 @@ class MainApp extends StatelessWidget {
         'group_estudos': (context) => EstudosView(),
         'sobre':(context) => SobreView(),
         'esqueci_senha': (context) => EsqueciSenhaView(),
+        'pesquisa_view': (context) => PesquisaView(),
       },
       builder: DevicePreview.appBuilder,
     );

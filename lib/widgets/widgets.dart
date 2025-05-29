@@ -62,6 +62,15 @@ class SideBar extends StatelessWidget {
         ),
 
         ListTile(
+          leading: Icon(Icons.search, size: 30,),
+          title: Text('Pesquisa', style: TextStyle(fontSize: 22),),
+          onTap: () {
+            Navigator.pop(context);
+            Navigator.of(context).pushNamed('pesquisa_view');
+          },
+        ),
+
+        ListTile(
           leading: const Icon(Icons.check_box_outlined, size: 30,),
           title: const Text('Concluidos', style: TextStyle(fontSize: 22),),
           onTap: () {

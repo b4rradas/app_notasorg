@@ -1,6 +1,8 @@
+import 'dart:ui';
 import 'package:app_notasorg/model/notas_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 
 class NotasController {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -209,5 +211,17 @@ Stream<List<Nota>> getNotasDoUsuario() {
   }
 }
 
+Color getPriorityColor(String priorityTag) {
+    switch (priorityTag) {
+      case 'Alta Prioridade':
+        return Colors.red;
+      case 'Média Prioridade':
+        return Colors.yellow;
+      case 'Baixa Prioridade':
+        return Colors.green;
+      default:
+        return Colors.grey;
+    }
+  }
 
 }

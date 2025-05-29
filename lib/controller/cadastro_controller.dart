@@ -25,7 +25,7 @@ class CadastroController {
     return true;
   }
 
-bool SenhaSegura(String senha) {
+bool senhaSegura(String senha) {
   final hasUppercase = senha.contains(RegExp(r'[A-Z]'));
   final hasLowercase = senha.contains(RegExp(r'[a-z]'));
   final hasDigit = senha.contains(RegExp(r'[0-9]'));
